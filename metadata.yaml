@@ -1,0 +1,5 @@
+homepage: https://stape.io/
+documentation: https://github.com/stape-io/listrak-tag
+versions:
+  - sha: <INITIAL COMMIT HASH>
+    changeNotes: Initial release.
