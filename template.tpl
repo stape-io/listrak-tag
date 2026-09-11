@@ -266,7 +266,7 @@ ___TEMPLATE_PARAMETERS___
           }
         ],
         "newRowButtonText": "Add property",
-        "help": "Optional Order fields, as defined by Listrak\u0027s Order API.\u003cbr/\u003e\u003cbr/\u003eDefault mappings:\u003cul\u003e\u003cli\u003e\u003ci\u003eItem Total\u003c/i\u003e: \u003ci\u003eeventData.value\u003c/i\u003e\u003c/li\u003e\u003cli\u003e\u003ci\u003eShipping Total\u003c/i\u003e: \u003ci\u003eeventData.shipping\u003c/i\u003e\u003c/li\u003e\u003cli\u003e\u003ci\u003eTax Total\u003c/i\u003e: \u003ci\u003eeventData.tax\u003c/i\u003e\u003c/li\u003e\u003cli\u003e\u003ci\u003eItems\u003c/i\u003e: \u003ci\u003eeventData.items\u003c/i\u003e\u003c/li\u003e\u003c/ul\u003e\u003cbr/\u003eAny value you manually enter for these four properties above will always override the auto-mapped value. All other properties are sent to Listrak as-is, with no automatic mapping.\u003cbr/\u003e\u003cbr/\u003eFor \u003ci\u003eItems\u003c/i\u003e, set the \"Value\" to a JSON array of objects with \u003ci\u003esku\u003c/i\u003e (or \u003ci\u003eitem_id\u003c/i\u003e), \u003ci\u003equantity\u003c/i\u003e (or \u003ci\u003eqty\u003c/i\u003e) and \u003ci\u003eprice\u003c/i\u003e, e.g. \u003ci\u003e[{\"sku\": \"SKU-1\", \"quantity\": 2, \"price\": 9.99}]\u003c/i\u003e.\u003cbr/\u003e\u003cbr/\u003eThe above mappings and fallbacks only apply when \u003ci\u003eAutomap from Event Data\u003c/i\u003e is enabled."
+        "help": "Optional Order fields, as defined by Listrak\u0027s Order API.\u003cbr/\u003e\u003cbr/\u003eDefault mappings:\u003cul\u003e\u003cli\u003e\u003ci\u003eOrder Total\u003c/i\u003e: \u003ci\u003eeventData.value\u003c/i\u003e\u003c/li\u003e\u003cli\u003e\u003ci\u003eShipping Total\u003c/i\u003e: \u003ci\u003eeventData.shipping\u003c/i\u003e\u003c/li\u003e\u003cli\u003e\u003ci\u003eTax Total\u003c/i\u003e: \u003ci\u003eeventData.tax\u003c/i\u003e\u003c/li\u003e\u003cli\u003e\u003ci\u003eItems\u003c/i\u003e: \u003ci\u003eeventData.items\u003c/i\u003e\u003c/li\u003e\u003c/ul\u003e\u003cbr/\u003eAny value you manually enter for these four properties above will always override the auto-mapped value. All other properties are sent to Listrak as-is, with no automatic mapping.\u003cbr/\u003e\u003cbr/\u003eFor \u003ci\u003eItems\u003c/i\u003e, set the \"Value\" to a JSON array of objects with \u003ci\u003esku\u003c/i\u003e (or \u003ci\u003eitem_id\u003c/i\u003e), \u003ci\u003equantity\u003c/i\u003e (or \u003ci\u003eqty\u003c/i\u003e) and \u003ci\u003eprice\u003c/i\u003e, e.g. \u003ci\u003e[{\"sku\": \"SKU-1\", \"quantity\": 2, \"price\": 9.99}]\u003c/i\u003e.\u003cbr/\u003e\u003cbr/\u003eThe above mappings and fallbacks only apply when \u003ci\u003eAutomap from Event Data\u003c/i\u003e is enabled."
       }
     ],
     "enablingConditions": [
@@ -750,8 +750,8 @@ function mapOrderData(eventData) {
         : makeString(props[key]);
   }
 
-  if (autoMap && mappedData.itemTotal === undefined && isValidValue(eventData.value))
-    mappedData.itemTotal = makeNumber(eventData.value);
+  if (autoMap && mappedData.orderTotal === undefined && isValidValue(eventData.value))
+    mappedData.orderTotal = makeNumber(eventData.value);
   if (autoMap && mappedData.taxTotal === undefined && isValidValue(eventData.tax))
     mappedData.taxTotal = makeNumber(eventData.tax);
   if (autoMap && mappedData.shippingTotal === undefined && isValidValue(eventData.shipping)) {
@@ -1470,7 +1470,7 @@ scenarios:
       assertThat(order.orderNumber).isEqualTo('TXN-9');
       assertThat(order.email).isEqualTo('fallback@example.com');
       assertThat(order.customerNumber).isEqualTo('user-42');
-      assertThat(order.itemTotal).isEqualTo(150);
+      assertThat(order.orderTotal).isEqualTo(150);
       assertThat(order.taxTotal).isEqualTo(12);
       assertThat(order.shippingTotal).isEqualTo(8);
       assertThat(order.dateEntered).isDefined();

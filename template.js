@@ -94,8 +94,8 @@ function mapOrderData(eventData) {
         : makeString(props[key]);
   }
 
-  if (autoMap && mappedData.itemTotal === undefined && isValidValue(eventData.value))
-    mappedData.itemTotal = makeNumber(eventData.value);
+  if (autoMap && mappedData.orderTotal === undefined && isValidValue(eventData.value))
+    mappedData.orderTotal = makeNumber(eventData.value);
   if (autoMap && mappedData.taxTotal === undefined && isValidValue(eventData.tax))
     mappedData.taxTotal = makeNumber(eventData.tax);
   if (autoMap && mappedData.shippingTotal === undefined && isValidValue(eventData.shipping)) {
