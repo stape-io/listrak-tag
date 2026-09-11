@@ -176,6 +176,14 @@ ___TEMPLATE_PARAMETERS___
                 "displayValue": "Items"
               },
               {
+                "value": "billingAddress",
+                "displayValue": "Billing Address"
+              },
+              {
+                "value": "shippingAddress",
+                "displayValue": "Shipping Address"
+              },
+              {
                 "value": "merchandiseDiscount",
                 "displayValue": "Merchandise Discount"
               },
@@ -266,7 +274,7 @@ ___TEMPLATE_PARAMETERS___
           }
         ],
         "newRowButtonText": "Add property",
-        "help": "Optional Order fields, as defined by Listrak\u0027s Order API.\u003cbr/\u003e\u003cbr/\u003eDefault mappings:\u003cul\u003e\u003cli\u003e\u003ci\u003eOrder Total\u003c/i\u003e: \u003ci\u003eeventData.value\u003c/i\u003e\u003c/li\u003e\u003cli\u003e\u003ci\u003eShipping Total\u003c/i\u003e: \u003ci\u003eeventData.shipping\u003c/i\u003e\u003c/li\u003e\u003cli\u003e\u003ci\u003eTax Total\u003c/i\u003e: \u003ci\u003eeventData.tax\u003c/i\u003e\u003c/li\u003e\u003cli\u003e\u003ci\u003eItems\u003c/i\u003e: \u003ci\u003eeventData.items\u003c/i\u003e\u003c/li\u003e\u003c/ul\u003e\u003cbr/\u003eAny value you manually enter for these four properties above will always override the auto-mapped value. All other properties are sent to Listrak as-is, with no automatic mapping.\u003cbr/\u003e\u003cbr/\u003eFor \u003ci\u003eItems\u003c/i\u003e, set the \"Value\" to a JSON array of objects with \u003ci\u003esku\u003c/i\u003e (or \u003ci\u003eitem_id\u003c/i\u003e), \u003ci\u003equantity\u003c/i\u003e (or \u003ci\u003eqty\u003c/i\u003e) and \u003ci\u003eprice\u003c/i\u003e, e.g. \u003ci\u003e[{\"sku\": \"SKU-1\", \"quantity\": 2, \"price\": 9.99}]\u003c/i\u003e.\u003cbr/\u003e\u003cbr/\u003eThe above mappings and fallbacks only apply when \u003ci\u003eAutomap from Event Data\u003c/i\u003e is enabled."
+        "help": "Optional Order fields, as defined by Listrak\u0027s Order API.\u003cbr/\u003e\u003cbr/\u003eDefault mappings:\u003cul\u003e\u003cli\u003e\u003ci\u003eOrder Total\u003c/i\u003e: \u003ci\u003eeventData.value\u003c/i\u003e\u003c/li\u003e\u003cli\u003e\u003ci\u003eShipping Total\u003c/i\u003e: \u003ci\u003eeventData.shipping\u003c/i\u003e\u003c/li\u003e\u003cli\u003e\u003ci\u003eTax Total\u003c/i\u003e: \u003ci\u003eeventData.tax\u003c/i\u003e\u003c/li\u003e\u003cli\u003e\u003ci\u003eItems\u003c/i\u003e: \u003ci\u003eeventData.items\u003c/i\u003e\u003c/li\u003e\u003c/ul\u003e\u003cbr/\u003eAny value you manually enter for these four properties above will always override the auto-mapped value. All other properties are sent to Listrak as-is, with no automatic mapping. The above mappings and fallbacks only apply when \u003ci\u003eAutomap from Event Data\u003c/i\u003e is enabled.\u003cbr/\u003e\u003cbr/\u003eFor \u003ci\u003eItems\u003c/i\u003e, set the \"Value\" to a JSON array of objects with \u003ci\u003esku\u003c/i\u003e (or \u003ci\u003eitem_id\u003c/i\u003e), \u003ci\u003equantity\u003c/i\u003e (or \u003ci\u003eqty\u003c/i\u003e) and \u003ci\u003eprice\u003c/i\u003e, e.g. \u003ci\u003e[{\"sku\": \"SKU-1\", \"quantity\": 2, \"price\": 9.99}]\u003c/i\u003e.\u003cbr/\u003e\u003cbr/\u003eFor \u003ci\u003eBilling Address\u003c/i\u003e and \u003ci\u003eShipping Address\u003c/i\u003e, set the \"Value\" to a JSON object matching the shape documented in Listrak\u0027s Order API reference for that field."
       }
     ],
     "enablingConditions": [
@@ -653,7 +661,6 @@ ___TEMPLATE_PARAMETERS___
 
 
 ___SANDBOXED_JS_FOR_SERVER___
-
 const encodeUriComponent = require('encodeUriComponent');
 const getAllEventData = require('getAllEventData');
 const getRequestHeader = require('getRequestHeader');
@@ -717,6 +724,7 @@ function mapOrderData(eventData) {
     'merchandiseDiscount',
     'nonMerchandiseDiscount'
   ];
+  const ORDER_JSON_OBJECT_PROPERTIES = ['billingAddress', 'shippingAddress'];
   const autoMap = data.autoMapEventData;
   const orderNumber = data.orderNumber || (autoMap ? eventData.transaction_id : undefined);
   const mappedData = {};
@@ -743,7 +751,7 @@ function mapOrderData(eventData) {
       ? makeTableMap(data.orderProperties, 'key', 'value')
       : {};
   for (let key in props) {
-    if (key === 'items') continue;
+    if (key === 'items' || ORDER_JSON_OBJECT_PROPERTIES.indexOf(key) !== -1) continue;
     mappedData[key] =
       ORDER_NUMERIC_PROPERTIES.indexOf(key) !== -1
         ? makeNumber(props[key])
@@ -768,6 +776,12 @@ function mapOrderData(eventData) {
   if (getType(items) === 'array' && items.length) {
     mappedData.items = formatItems(items, mappedData.orderNumber);
   }
+
+  ORDER_JSON_OBJECT_PROPERTIES.forEach((key) => {
+    if (!isValidValue(props[key])) return;
+    const parsed = JSON.parse(props[key]);
+    if (getType(parsed) === 'object') mappedData[key] = parsed;
+  });
 
   return mappedData;
 }
@@ -1097,8 +1111,6 @@ function log(rawDataToLog) {
   rawDataToLog.TraceId = getRequestHeader('trace-id');
   logToConsole(JSON.stringify(rawDataToLog));
 }
-
-
 ___SERVER_PERMISSIONS___
 
 [
@@ -1700,6 +1712,56 @@ scenarios:
       const order = JSON.parse(body)[0];
       assertThat(order.items).hasLength(1);
       assertThat(order.items[0].sku).isEqualTo('SKU-1');
+      return Promise.create((resolve) => resolve({statusCode: 200, body: '{}'}));
+    });
+
+    runCode(mockData);
+
+    callLater(() => {
+      assertApi('gtmOnSuccess').wasCalled();
+      assertApi('gtmOnFailure').wasNotCalled();
+    });
+- name: '[Order] Billing Address and Shipping Address properties are parsed as JSON objects'
+  code: |-
+    mockData.orderProperties = [
+      {key: 'billingAddress', value: JSON.stringify({firstName: 'Jane', lastName: 'Doe'})},
+      {key: 'shippingAddress', value: JSON.stringify({firstName: 'John', lastName: 'Smith'})}
+    ];
+
+    mock('sendHttpRequest', (url, options, body) => {
+      if (url === 'https://auth.listrak.com/OAuth2/Token') {
+        return Promise.create((resolve) =>
+          resolve({statusCode: 200, body: JSON.stringify({access_token: 'tok', expires_in: 3600})})
+        );
+      }
+      const order = JSON.parse(body)[0];
+      assertThat(order.billingAddress).isEqualTo({firstName: 'Jane', lastName: 'Doe'});
+      assertThat(order.shippingAddress).isEqualTo({firstName: 'John', lastName: 'Smith'});
+      return Promise.create((resolve) => resolve({statusCode: 200, body: '{}'}));
+    });
+
+    runCode(mockData);
+
+    callLater(() => {
+      assertApi('gtmOnSuccess').wasCalled();
+      assertApi('gtmOnFailure').wasNotCalled();
+    });
+- name: '[Order] Ignores Billing Address and Shipping Address properties when not valid JSON'
+  code: |-
+    mockData.orderProperties = [
+      {key: 'billingAddress', value: 'not-json'},
+      {key: 'shippingAddress', value: '[1,2,3]'}
+    ];
+
+    mock('sendHttpRequest', (url, options, body) => {
+      if (url === 'https://auth.listrak.com/OAuth2/Token') {
+        return Promise.create((resolve) =>
+          resolve({statusCode: 200, body: JSON.stringify({access_token: 'tok', expires_in: 3600})})
+        );
+      }
+      const order = JSON.parse(body)[0];
+      assertThat(order.billingAddress).isUndefined();
+      assertThat(order.shippingAddress).isUndefined();
       return Promise.create((resolve) => resolve({statusCode: 200, body: '{}'}));
     });
 

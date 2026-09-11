@@ -61,6 +61,7 @@ function mapOrderData(eventData) {
     'merchandiseDiscount',
     'nonMerchandiseDiscount'
   ];
+  const ORDER_JSON_OBJECT_PROPERTIES = ['billingAddress', 'shippingAddress'];
   const autoMap = data.autoMapEventData;
   const orderNumber = data.orderNumber || (autoMap ? eventData.transaction_id : undefined);
   const mappedData = {};
@@ -87,7 +88,7 @@ function mapOrderData(eventData) {
       ? makeTableMap(data.orderProperties, 'key', 'value')
       : {};
   for (let key in props) {
-    if (key === 'items') continue;
+    if (key === 'items' || ORDER_JSON_OBJECT_PROPERTIES.indexOf(key) !== -1) continue;
     mappedData[key] =
       ORDER_NUMERIC_PROPERTIES.indexOf(key) !== -1
         ? makeNumber(props[key])
@@ -112,6 +113,12 @@ function mapOrderData(eventData) {
   if (getType(items) === 'array' && items.length) {
     mappedData.items = formatItems(items, mappedData.orderNumber);
   }
+
+  ORDER_JSON_OBJECT_PROPERTIES.forEach((key) => {
+    if (!isValidValue(props[key])) return;
+    const parsed = JSON.parse(props[key]);
+    if (getType(parsed) === 'object') mappedData[key] = parsed;
+  });
 
   return mappedData;
 }
