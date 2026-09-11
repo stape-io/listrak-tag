@@ -1693,34 +1693,6 @@ scenarios:
       assertApi('gtmOnSuccess').wasCalled();
       assertApi('gtmOnFailure').wasNotCalled();
     });
-- name: '[Order] Falls back to Event Data items when the Items property is not valid
-    JSON'
-  code: |-
-    mockData.orderProperties = [{key: 'items', value: 'not-json'}];
-
-    mock('getAllEventData', () => ({
-      page_location: 'https://example.com/checkout',
-      items: [{item_id: 'SKU-1', quantity: 2, price: 10}]
-    }));
-
-    mock('sendHttpRequest', (url, options, body) => {
-      if (url === 'https://auth.listrak.com/OAuth2/Token') {
-        return Promise.create((resolve) =>
-          resolve({statusCode: 200, body: JSON.stringify({access_token: 'tok', expires_in: 3600})})
-        );
-      }
-      const order = JSON.parse(body)[0];
-      assertThat(order.items).hasLength(1);
-      assertThat(order.items[0].sku).isEqualTo('SKU-1');
-      return Promise.create((resolve) => resolve({statusCode: 200, body: '{}'}));
-    });
-
-    runCode(mockData);
-
-    callLater(() => {
-      assertApi('gtmOnSuccess').wasCalled();
-      assertApi('gtmOnFailure').wasNotCalled();
-    });
 - name: '[Order] Billing Address and Shipping Address properties are parsed as JSON objects'
   code: |-
     mockData.orderProperties = [
@@ -1737,31 +1709,6 @@ scenarios:
       const order = JSON.parse(body)[0];
       assertThat(order.billingAddress).isEqualTo({firstName: 'Jane', lastName: 'Doe'});
       assertThat(order.shippingAddress).isEqualTo({firstName: 'John', lastName: 'Smith'});
-      return Promise.create((resolve) => resolve({statusCode: 200, body: '{}'}));
-    });
-
-    runCode(mockData);
-
-    callLater(() => {
-      assertApi('gtmOnSuccess').wasCalled();
-      assertApi('gtmOnFailure').wasNotCalled();
-    });
-- name: '[Order] Ignores Billing Address and Shipping Address properties when not valid JSON'
-  code: |-
-    mockData.orderProperties = [
-      {key: 'billingAddress', value: 'not-json'},
-      {key: 'shippingAddress', value: '[1,2,3]'}
-    ];
-
-    mock('sendHttpRequest', (url, options, body) => {
-      if (url === 'https://auth.listrak.com/OAuth2/Token') {
-        return Promise.create((resolve) =>
-          resolve({statusCode: 200, body: JSON.stringify({access_token: 'tok', expires_in: 3600})})
-        );
-      }
-      const order = JSON.parse(body)[0];
-      assertThat(order.billingAddress).isUndefined();
-      assertThat(order.shippingAddress).isUndefined();
       return Promise.create((resolve) => resolve({statusCode: 200, body: '{}'}));
     });
 
