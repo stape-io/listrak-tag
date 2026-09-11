@@ -12,6 +12,7 @@ const makeTableMap = require('makeTableMap');
 const Math = require('Math');
 const Promise = require('Promise');
 const sendHttpRequest = require('sendHttpRequest');
+const sha256Sync = require('sha256Sync');
 const templateDataStorage = require('templateDataStorage');
 
 /*==============================================================================
@@ -27,7 +28,8 @@ if (data.eventType === 'order') {
     return data.gtmOnSuccess();
   }
 } else if (data.eventType === 'contact') {
-  const failed = upsertContact(eventData);
+  const failed =
+    data.channel === 'sms' ? upsertSmsContact(eventData) : upsertEmailContact(eventData);
   if (!failed && data.useOptimisticScenario) {
     return data.gtmOnSuccess();
   }
@@ -42,16 +44,8 @@ if (data.eventType === 'order') {
 function trackOrder(eventData) {
   const orderData = mapOrderData(eventData);
 
-  if (!isValidValue(orderData.orderNumber)) {
-    log({
-      Name: 'Listrak',
-      Type: 'Message',
-      Message: '🛑 [ERROR] Order was not sent.',
-      Reason: 'Missing required parameter: "orderNumber".'
-    });
-    data.gtmOnFailure();
+  if (!requireValue(orderData.orderNumber, 'orderNumber', '🛑 [ERROR] Order was not sent.'))
     return true;
-  }
 
   performApiCall('https://api.listrak.com/data/v1/Order', 'POST', [orderData]);
   return false;
@@ -77,15 +71,12 @@ function mapOrderData(eventData) {
     : convertTimestampToISO(getTimestampMillis());
 
   const eventDataUserData = eventData.user_data || {};
-  if (isValidValue(data.email)) mappedData.email = data.email;
-  else if (eventData.email) mappedData.email = eventData.email;
-  else if (eventDataUserData.email) mappedData.email = eventDataUserData.email;
-  else if (eventDataUserData.email_address) mappedData.email = eventDataUserData.email_address;
+  const email =
+    data.email || eventData.email || eventDataUserData.email || eventDataUserData.email_address;
+  if (isValidValue(email)) mappedData.email = email;
 
-  if (isValidValue(data.customerNumber))
-    mappedData.customerNumber = makeString(data.customerNumber);
-  else if (eventData.user_id) mappedData.customerNumber = makeString(eventData.user_id);
-  else if (eventData.client_id) mappedData.customerNumber = makeString(eventData.client_id);
+  const customerNumber = data.customerNumber || eventData.user_id || eventData.client_id;
+  if (isValidValue(customerNumber)) mappedData.customerNumber = makeString(customerNumber);
 
   if (data.orderProperties && data.orderProperties.length) {
     const props = makeTableMap(data.orderProperties, 'key', 'value');
@@ -146,7 +137,7 @@ function formatItems(items, orderNumber) {
   return formattedItems;
 }
 
-function upsertContact(eventData) {
+function upsertEmailContact(eventData) {
   const eventDataUserData = eventData.user_data || {};
   const email =
     data.emailAddress ||
@@ -154,27 +145,8 @@ function upsertContact(eventData) {
     eventDataUserData.email ||
     eventDataUserData.email_address;
 
-  if (!isValidValue(data.listId)) {
-    log({
-      Name: 'Listrak',
-      Type: 'Message',
-      Message: '🛑 [ERROR] Contact was not sent.',
-      Reason: 'Missing required parameter: "listId".'
-    });
-    data.gtmOnFailure();
-    return true;
-  }
-
-  if (!isValidValue(email)) {
-    log({
-      Name: 'Listrak',
-      Type: 'Message',
-      Message: '🛑 [ERROR] Contact was not sent.',
-      Reason: 'Missing required parameter: "emailAddress".'
-    });
-    data.gtmOnFailure();
-    return true;
-  }
+  if (!requireValue(data.listId, 'listId', '🛑 [ERROR] Contact was not sent.')) return true;
+  if (!requireValue(email, 'emailAddress', '🛑 [ERROR] Contact was not sent.')) return true;
 
   const contactData = {
     emailAddress: makeString(email),
@@ -185,9 +157,55 @@ function upsertContact(eventData) {
 
   const url =
     'https://api.listrak.com/email/v1/List/' +
-    encodeUriComponent(data.listId) +
+    enc(data.listId) +
     '/Contact' +
     buildContactQueryString();
+
+  performApiCall(url, 'POST', contactData);
+  return false;
+}
+
+function upsertSmsContact(eventData) {
+  const eventDataUserData = eventData.user_data || {};
+  const phoneNumber = data.phoneNumber || eventDataUserData.phone_number || eventDataUserData.phone;
+
+  if (!requireValue(data.shortCodeId, 'shortCodeId', '🛑 [ERROR] SMS contact was not sent.'))
+    return true;
+  if (!requireValue(data.phoneListId, 'phoneListId', '🛑 [ERROR] SMS contact was not sent.'))
+    return true;
+  if (!requireValue(phoneNumber, 'phoneNumber', '🛑 [ERROR] SMS contact was not sent.'))
+    return true;
+
+  if (data.smsAction === 'subscribe') {
+    const url =
+      'https://api.listrak.com/sms/v1/ShortCode/' +
+      enc(data.shortCodeId) +
+      '/Contact/' +
+      enc(phoneNumber) +
+      '/PhoneList/' +
+      enc(data.phoneListId);
+
+    performApiCall(url, 'POST', null);
+    return false;
+  }
+
+  const contactData = {
+    phoneNumber: makeString(phoneNumber),
+    segmentationFieldValues: mapSegmentationFieldValues()
+  };
+  if (isValidValue(data.smsEmailAddress)) contactData.emailAddress = data.smsEmailAddress;
+  if (isValidValue(data.firstName)) contactData.firstName = data.firstName;
+  if (isValidValue(data.lastName)) contactData.lastName = data.lastName;
+  if (isValidValue(data.birthday)) contactData.birthday = data.birthday;
+  if (isValidValue(data.postalCode)) contactData.postalCode = data.postalCode;
+  if (data.optedOut) contactData.optedOut = true;
+
+  const url =
+    'https://api.listrak.com/sms/v1/ShortCode/' +
+    enc(data.shortCodeId) +
+    '/PhoneList/' +
+    enc(data.phoneListId) +
+    '/Contact';
 
   performApiCall(url, 'POST', contactData);
   return false;
@@ -203,20 +221,18 @@ function mapSegmentationFieldValues() {
 
 function buildContactQueryString() {
   const params = [];
-  if (isValidValue(data.updateType))
-    params.push('updateType=' + encodeUriComponent(data.updateType));
+  if (isValidValue(data.updateType)) params.push('updateType=' + enc(data.updateType));
   if (data.overrideUnsubscribe) params.push('overrideUnsubscribe=true');
   if (data.subscribedByContact) params.push('subscribedByContact=true');
   if (data.sendDoubleOptIn) params.push('sendDoubleOptIn=true');
-  if (isValidValue(data.newEmailAddress)) {
-    params.push('newEmailAddress=' + encodeUriComponent(data.newEmailAddress));
-  }
-  if (isValidValue(data.eventIds)) params.push('eventIds=' + encodeUriComponent(data.eventIds));
+  if (isValidValue(data.newEmailAddress))
+    params.push('newEmailAddress=' + enc(data.newEmailAddress));
+  if (isValidValue(data.eventIds)) params.push('eventIds=' + enc(data.eventIds));
   return params.length ? '?' + params.join('&') : '';
 }
 
 function getAccessToken() {
-  const cacheKey = 'listrak_access_token:' + data.clientId;
+  const cacheKey = sha256Sync('listrak_access_token_' + data.clientId + '_' + data.clientSecret);
   const cached = templateDataStorage.getItemCopy(cacheKey);
   if (cached && cached.expiresAt > getTimestampMillis()) {
     return Promise.create((resolve) => resolve(cached.accessToken));
@@ -224,73 +240,68 @@ function getAccessToken() {
 
   const body =
     'grant_type=client_credentials&client_id=' +
-    encodeUriComponent(data.clientId) +
+    enc(data.clientId) +
     '&client_secret=' +
-    encodeUriComponent(data.clientSecret);
+    enc(data.clientSecret);
 
   return sendHttpRequest(
     'https://auth.listrak.com/OAuth2/Token',
     {
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      method: 'POST',
-      timeout: 3500
+      method: 'POST'
     },
     body
-  ).then((result) => {
-    const parsedBody = JSON.parse(result.body || '{}');
-    if (
-      result.statusCode >= 200 &&
-      result.statusCode < 400 &&
-      parsedBody &&
-      parsedBody.access_token
-    ) {
-      templateDataStorage.setItemCopy(cacheKey, {
-        accessToken: parsedBody.access_token,
-        expiresAt: getTimestampMillis() + (makeInteger(parsedBody.expires_in || 3600) - 60) * 1000
-      });
-      return parsedBody.access_token;
-    }
+  )
+    .then((result) => {
+      const parsedBody = JSON.parse(result.body || '{}');
+      if (
+        result.statusCode >= 200 &&
+        result.statusCode < 400 &&
+        parsedBody &&
+        parsedBody.access_token
+      ) {
+        templateDataStorage.setItemCopy(cacheKey, {
+          accessToken: parsedBody.access_token,
+          expiresAt: getTimestampMillis() + (makeInteger(parsedBody.expires_in || 3600) - 60) * 1000
+        });
+        return parsedBody.access_token;
+      }
 
-    logApiError('🛑 [ERROR] Failed to obtain a Listrak access token.', result.statusCode, parsedBody);
-    return Promise.create((resolve, reject) => reject({ reason: 'auth_failed' }));
-  });
+      if (!data.useOptimisticScenario) data.gtmOnFailure();
+      return undefined;
+    })
+    .catch(() => {
+      if (!data.useOptimisticScenario) data.gtmOnFailure();
+      return undefined;
+    });
 }
 
 function performApiCall(url, method, body) {
-  getAccessToken()
-    .then((token) =>
-      sendHttpRequest(
-        url,
-        {
-          headers: { Authorization: 'Bearer ' + token, 'Content-Type': 'application/json' },
-          method: method,
-          timeout: 3500
-        },
-        JSON.stringify(body)
-      )
-    )
-    .then((result) => {
-      const parsedBody = JSON.parse(result.body || '{}');
-      const success =
-        result.statusCode >= 200 && result.statusCode < 400 && !(parsedBody && parsedBody.error);
+  getAccessToken().then((token) => {
+    if (!token) return;
 
-      if (!success) {
-        logApiError('🛑 [ERROR] Listrak API call failed.', result.statusCode, parsedBody);
-      }
+    const options = { headers: { Authorization: 'Bearer ' + token }, method: method };
+    let requestBody;
+    if (body !== null) {
+      options.headers['Content-Type'] = 'application/json';
+      requestBody = JSON.stringify(body);
+    }
 
-      if (!data.useOptimisticScenario) {
-        if (success) data.gtmOnSuccess();
-        else data.gtmOnFailure();
-      }
-    })
-    .catch((error) => {
-      logApiError(
-        '🛑 [ERROR] Listrak API request failed.',
-        (error && error.reason) || 'unknown_error',
-        {}
-      );
-      if (!data.useOptimisticScenario) data.gtmOnFailure();
-    });
+    sendHttpRequest(url, options, requestBody)
+      .then((result) => {
+        const parsedBody = JSON.parse(result.body || '{}');
+        const success =
+          result.statusCode >= 200 && result.statusCode < 400 && !(parsedBody && parsedBody.error);
+
+        if (!data.useOptimisticScenario) {
+          if (success) data.gtmOnSuccess();
+          else data.gtmOnFailure();
+        }
+      })
+      .catch(() => {
+        if (!data.useOptimisticScenario) data.gtmOnFailure();
+      });
+  });
 }
 
 /*==============================================================================
@@ -364,9 +375,22 @@ function convertTimestampToISO(timestamp) {
   );
 }
 
+function requireValue(value, paramName, failMessage) {
+  if (isValidValue(value)) return true;
+  log({
+    Name: 'Listrak',
+    Type: 'Message',
+    Message: failMessage,
+    Reason: 'Missing required parameter: "' + paramName + '".'
+  });
+  data.gtmOnFailure();
+  return false;
+}
+
 function isValidValue(value) {
   const valueType = getType(value);
-  return valueType !== 'null' && valueType !== 'undefined' && value !== '' && value === value;
+  if (valueType === 'null' || valueType === 'undefined' || value !== value) return false;
+  return value !== '' && value !== 'undefined' && value !== 'null';
 }
 
 function isConsentGivenOrNotRequired(data, eventData) {
@@ -394,14 +418,9 @@ function shouldExitEarly(data, eventData) {
   return false;
 }
 
-function logApiError(message, status, response) {
-  log({
-    Name: 'Listrak',
-    Type: 'Message',
-    Message: message,
-    Status: status,
-    Response: response
-  });
+function enc(value) {
+  if (['null', 'undefined'].indexOf(getType(value)) !== -1) value = '';
+  return encodeUriComponent(makeString(value));
 }
 
 function log(rawDataToLog) {
