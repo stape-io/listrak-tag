@@ -61,7 +61,8 @@ function mapOrderData(eventData) {
     'merchandiseDiscount',
     'nonMerchandiseDiscount'
   ];
-  const orderNumber = data.orderNumber || eventData.transaction_id;
+  const autoMap = data.autoMapEventData;
+  const orderNumber = data.orderNumber || (autoMap ? eventData.transaction_id : undefined);
   const mappedData = {};
 
   if (isValidValue(orderNumber)) mappedData.orderNumber = makeString(orderNumber);
@@ -72,31 +73,42 @@ function mapOrderData(eventData) {
 
   const eventDataUserData = eventData.user_data || {};
   const email =
-    data.email || eventData.email || eventDataUserData.email || eventDataUserData.email_address;
+    data.email ||
+    (autoMap
+      ? eventData.email || eventDataUserData.email || eventDataUserData.email_address
+      : undefined);
   if (isValidValue(email)) mappedData.email = email;
 
-  const customerNumber = data.customerNumber || eventData.user_id || eventData.client_id;
+  const customerNumber = data.customerNumber || (autoMap ? eventData.user_id : undefined);
   if (isValidValue(customerNumber)) mappedData.customerNumber = makeString(customerNumber);
 
-  if (data.orderProperties && data.orderProperties.length) {
-    const props = makeTableMap(data.orderProperties, 'key', 'value');
-    for (let key in props) {
-      mappedData[key] =
-        ORDER_NUMERIC_PROPERTIES.indexOf(key) !== -1
-          ? makeNumber(props[key])
-          : makeString(props[key]);
-    }
+  const props =
+    data.orderProperties && data.orderProperties.length
+      ? makeTableMap(data.orderProperties, 'key', 'value')
+      : {};
+  for (let key in props) {
+    if (key === 'items') continue;
+    mappedData[key] =
+      ORDER_NUMERIC_PROPERTIES.indexOf(key) !== -1
+        ? makeNumber(props[key])
+        : makeString(props[key]);
   }
 
-  if (mappedData.itemTotal === undefined && isValidValue(eventData.value))
+  if (autoMap && mappedData.itemTotal === undefined && isValidValue(eventData.value))
     mappedData.itemTotal = makeNumber(eventData.value);
-  if (mappedData.taxTotal === undefined && isValidValue(eventData.tax))
+  if (autoMap && mappedData.taxTotal === undefined && isValidValue(eventData.tax))
     mappedData.taxTotal = makeNumber(eventData.tax);
-  if (mappedData.shippingTotal === undefined && isValidValue(eventData.shipping)) {
+  if (autoMap && mappedData.shippingTotal === undefined && isValidValue(eventData.shipping)) {
     mappedData.shippingTotal = makeNumber(eventData.shipping);
   }
 
-  const items = eventData.items;
+  const explicitItems = isValidValue(props.items) ? JSON.parse(props.items) : undefined;
+  let items;
+  if (getType(explicitItems) === 'array') {
+    items = explicitItems;
+  } else if (autoMap) {
+    items = eventData.items;
+  }
   if (getType(items) === 'array' && items.length) {
     mappedData.items = formatItems(items, mappedData.orderNumber);
   }
@@ -141,9 +153,9 @@ function upsertEmailContact(eventData) {
   const eventDataUserData = eventData.user_data || {};
   const email =
     data.emailAddress ||
-    eventData.email ||
-    eventDataUserData.email ||
-    eventDataUserData.email_address;
+    (data.autoMapEventData
+      ? eventData.email || eventDataUserData.email || eventDataUserData.email_address
+      : undefined);
 
   if (!requireValue(data.listId, 'listId', '🛑 [ERROR] Contact was not sent.')) return true;
   if (!requireValue(email, 'emailAddress', '🛑 [ERROR] Contact was not sent.')) return true;
@@ -167,7 +179,9 @@ function upsertEmailContact(eventData) {
 
 function upsertSmsContact(eventData) {
   const eventDataUserData = eventData.user_data || {};
-  const phoneNumber = data.phoneNumber || eventDataUserData.phone_number || eventDataUserData.phone;
+  const phoneNumber =
+    data.phoneNumber ||
+    (data.autoMapEventData ? eventDataUserData.phone_number || eventDataUserData.phone : undefined);
 
   if (!requireValue(data.shortCodeId, 'shortCodeId', '🛑 [ERROR] SMS contact was not sent.'))
     return true;

@@ -22,6 +22,7 @@ The tag supports two event types:
     - **Order**: **Order Number** and optional Order Properties (item/shipping/tax totals, discounts, coupon code, tracking, etc.).
     - **Contact** (**Email** channel): **List ID** and **Email Address**, plus optional Profile Fields and Advanced Options (Update Type, Subscription settings, Event IDs).
     - **Contact** (**SMS** channel): **Short Code ID**, **SMS List ID** and **Phone Number**. Choose **Create Contact** to create/update the contact (optionally with Email Address, First/Last Name, Birthday, Postal Code, Opted Out and Profile Fields) or **Subscribe Contact** to subscribe a contact that already exists on the Short Code.
+5.  With **Automap from Event Data** enabled (the default), fields left empty are automatically filled from Event Data — e.g. Order Number falls back to `transaction_id`, Customer Email/Contact Email Address fall back to `email`/`user_data.email`/`user_data.email_address`, and SMS Phone Number falls back to `user_data.phone_number`/`user_data.phone`. Disable this checkbox to require every value to be set explicitly on the tag. Each field's help text documents its exact Event Data source.
 
 ## Open Source
 

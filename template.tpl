@@ -89,6 +89,14 @@ ___TEMPLATE_PARAMETERS___
         "checkboxText": "Use Optimistic Scenario",
         "simpleValueType": true,
         "help": "The tag will call gtmOnSuccess() without waiting for a response from the API. This speeds up sGTM response time, but returns a success status even if the API call fails."
+      },
+      {
+        "type": "CHECKBOX",
+        "name": "autoMapEventData",
+        "checkboxText": "Automap from Event Data",
+        "simpleValueType": true,
+        "defaultValue": true,
+        "help": "When enabled (default), fields left empty automatically fall back to values from Event Data, as documented in each field\u0027s help text below. Disable to require every value to be set explicitly."
       }
     ]
   },
@@ -108,7 +116,7 @@ ___TEMPLATE_PARAMETERS___
             "type": "NON_EMPTY"
           }
         ],
-        "help": "Required. The unique order number for this order.\u003cbr/\u003e\u003cbr/\u003eFalls back to \u003ci\u003eeventData.transaction_id\u003c/i\u003e when left empty."
+        "help": "Required. The unique order number for this order.\u003cbr/\u003e\u003cbr/\u003eFalls back to \u003ci\u003eeventData.transaction_id\u003c/i\u003e when left empty and \u003ci\u003eAutomap from Event Data\u003c/i\u003e is enabled."
       },
       {
         "type": "TEXT",
@@ -122,19 +130,19 @@ ___TEMPLATE_PARAMETERS___
         "name": "email",
         "displayName": "Customer Email (Optional)",
         "simpleValueType": true,
-        "help": "The customer\u0027s email address, used by Listrak to match this order to a contact.\u003cbr/\u003e\u003cbr/\u003eFalls back to \u003ci\u003eeventData.email\u003c/i\u003e, then \u003ci\u003eeventData.user_data.email\u003c/i\u003e, then \u003ci\u003eeventData.user_data.email_address\u003c/i\u003e, when left empty."
+        "help": "The customer\u0027s email address, used by Listrak to match this order to a contact.\u003cbr/\u003e\u003cbr/\u003eFalls back to \u003ci\u003eeventData.email\u003c/i\u003e, then \u003ci\u003eeventData.user_data.email\u003c/i\u003e, then \u003ci\u003eeventData.user_data.email_address\u003c/i\u003e, when left empty and \u003ci\u003eAutomap from Event Data\u003c/i\u003e is enabled."
       },
       {
         "type": "TEXT",
         "name": "customerNumber",
         "displayName": "Customer Number (Optional)",
         "simpleValueType": true,
-        "help": "Your own customer identifier for this order.\u003cbr/\u003e\u003cbr/\u003eFalls back to \u003ci\u003eeventData.user_id\u003c/i\u003e, then \u003ci\u003eeventData.client_id\u003c/i\u003e, when left empty."
+        "help": "Your own customer identifier for this order.\u003cbr/\u003e\u003cbr/\u003eFalls back to \u003ci\u003eeventData.user_id\u003c/i\u003e when left empty and \u003ci\u003eAutomap from Event Data\u003c/i\u003e is enabled."
       },
       {
         "type": "SIMPLE_TABLE",
         "name": "orderProperties",
-        "displayName": "",
+        "displayName": "Order Properties",
         "simpleTableColumns": [
           {
             "defaultValue": "",
@@ -162,6 +170,10 @@ ___TEMPLATE_PARAMETERS___
               {
                 "value": "orderTotal",
                 "displayValue": "Order Total"
+              },
+              {
+                "value": "items",
+                "displayValue": "Items"
               },
               {
                 "value": "merchandiseDiscount",
@@ -254,7 +266,7 @@ ___TEMPLATE_PARAMETERS___
           }
         ],
         "newRowButtonText": "Add property",
-        "help": "Optional Order fields, as defined by Listrak\u0027s Order API.\u003cbr/\u003e\u003cbr/\u003e\"Item Total\" falls back to \u003ci\u003eeventData.value\u003c/i\u003e, \"Shipping Total\" falls back to \u003ci\u003eeventData.shipping\u003c/i\u003e, and \"Tax Total\" falls back to \u003ci\u003eeventData.tax\u003c/i\u003e, when not set here."
+        "help": "Optional Order fields, as defined by Listrak\u0027s Order API.\u003cbr/\u003e\u003cbr/\u003eDefault mappings:\u003cul\u003e\u003cli\u003e\u003ci\u003eItem Total\u003c/i\u003e: \u003ci\u003eeventData.value\u003c/i\u003e\u003c/li\u003e\u003cli\u003e\u003ci\u003eShipping Total\u003c/i\u003e: \u003ci\u003eeventData.shipping\u003c/i\u003e\u003c/li\u003e\u003cli\u003e\u003ci\u003eTax Total\u003c/i\u003e: \u003ci\u003eeventData.tax\u003c/i\u003e\u003c/li\u003e\u003cli\u003e\u003ci\u003eItems\u003c/i\u003e: \u003ci\u003eeventData.items\u003c/i\u003e\u003c/li\u003e\u003c/ul\u003e\u003cbr/\u003eAny value you manually enter for these four properties above will always override the auto-mapped value. All other properties are sent to Listrak as-is, with no automatic mapping.\u003cbr/\u003e\u003cbr/\u003eFor \u003ci\u003eItems\u003c/i\u003e, set the \"Value\" to a JSON array of objects with \u003ci\u003esku\u003c/i\u003e (or \u003ci\u003eitem_id\u003c/i\u003e), \u003ci\u003equantity\u003c/i\u003e (or \u003ci\u003eqty\u003c/i\u003e) and \u003ci\u003eprice\u003c/i\u003e, e.g. \u003ci\u003e[{\"sku\": \"SKU-1\", \"quantity\": 2, \"price\": 9.99}]\u003c/i\u003e.\u003cbr/\u003e\u003cbr/\u003eThe above mappings and fallbacks only apply when \u003ci\u003eAutomap from Event Data\u003c/i\u003e is enabled."
       }
     ],
     "enablingConditions": [
@@ -318,7 +330,7 @@ ___TEMPLATE_PARAMETERS___
             "type": "NON_EMPTY"
           }
         ],
-        "help": "Required. The contact\u0027s email address.\u003cbr/\u003e\u003cbr/\u003eFalls back to \u003ci\u003eeventData.email\u003c/i\u003e, then \u003ci\u003eeventData.user_data.email\u003c/i\u003e, then \u003ci\u003eeventData.user_data.email_address\u003c/i\u003e, when left empty.",
+        "help": "Required. The contact\u0027s email address.\u003cbr/\u003e\u003cbr/\u003eFalls back to \u003ci\u003eeventData.email\u003c/i\u003e, then \u003ci\u003eeventData.user_data.email\u003c/i\u003e, then \u003ci\u003eeventData.user_data.email_address\u003c/i\u003e, when left empty and \u003ci\u003eAutomap from Event Data\u003c/i\u003e is enabled.",
         "enablingConditions": [
           {
             "paramName": "channel",
@@ -484,7 +496,7 @@ ___TEMPLATE_PARAMETERS___
             "type": "NON_EMPTY"
           }
         ],
-        "help": "Required. The contact\u0027s phone number, preferably in E.164 format (e.g. +16505551212).\u003cbr/\u003e\u003cbr/\u003eFalls back to \u003ci\u003eeventData.user_data.phone_number\u003c/i\u003e, then \u003ci\u003eeventData.user_data.phone\u003c/i\u003e, when left empty.",
+        "help": "Required. The contact\u0027s phone number, preferably in E.164 format (e.g. +16505551212).\u003cbr/\u003e\u003cbr/\u003eFalls back to \u003ci\u003eeventData.user_data.phone_number\u003c/i\u003e, then \u003ci\u003eeventData.user_data.phone\u003c/i\u003e, when left empty and \u003ci\u003eAutomap from Event Data\u003c/i\u003e is enabled.",
         "enablingConditions": [
           {
             "paramName": "channel",
@@ -705,7 +717,8 @@ function mapOrderData(eventData) {
     'merchandiseDiscount',
     'nonMerchandiseDiscount'
   ];
-  const orderNumber = data.orderNumber || eventData.transaction_id;
+  const autoMap = data.autoMapEventData;
+  const orderNumber = data.orderNumber || (autoMap ? eventData.transaction_id : undefined);
   const mappedData = {};
 
   if (isValidValue(orderNumber)) mappedData.orderNumber = makeString(orderNumber);
@@ -716,31 +729,42 @@ function mapOrderData(eventData) {
 
   const eventDataUserData = eventData.user_data || {};
   const email =
-    data.email || eventData.email || eventDataUserData.email || eventDataUserData.email_address;
+    data.email ||
+    (autoMap
+      ? eventData.email || eventDataUserData.email || eventDataUserData.email_address
+      : undefined);
   if (isValidValue(email)) mappedData.email = email;
 
-  const customerNumber = data.customerNumber || eventData.user_id || eventData.client_id;
+  const customerNumber = data.customerNumber || (autoMap ? eventData.user_id : undefined);
   if (isValidValue(customerNumber)) mappedData.customerNumber = makeString(customerNumber);
 
-  if (data.orderProperties && data.orderProperties.length) {
-    const props = makeTableMap(data.orderProperties, 'key', 'value');
-    for (let key in props) {
-      mappedData[key] =
-        ORDER_NUMERIC_PROPERTIES.indexOf(key) !== -1
-          ? makeNumber(props[key])
-          : makeString(props[key]);
-    }
+  const props =
+    data.orderProperties && data.orderProperties.length
+      ? makeTableMap(data.orderProperties, 'key', 'value')
+      : {};
+  for (let key in props) {
+    if (key === 'items') continue;
+    mappedData[key] =
+      ORDER_NUMERIC_PROPERTIES.indexOf(key) !== -1
+        ? makeNumber(props[key])
+        : makeString(props[key]);
   }
 
-  if (mappedData.itemTotal === undefined && isValidValue(eventData.value))
+  if (autoMap && mappedData.itemTotal === undefined && isValidValue(eventData.value))
     mappedData.itemTotal = makeNumber(eventData.value);
-  if (mappedData.taxTotal === undefined && isValidValue(eventData.tax))
+  if (autoMap && mappedData.taxTotal === undefined && isValidValue(eventData.tax))
     mappedData.taxTotal = makeNumber(eventData.tax);
-  if (mappedData.shippingTotal === undefined && isValidValue(eventData.shipping)) {
+  if (autoMap && mappedData.shippingTotal === undefined && isValidValue(eventData.shipping)) {
     mappedData.shippingTotal = makeNumber(eventData.shipping);
   }
 
-  const items = eventData.items;
+  const explicitItems = isValidValue(props.items) ? JSON.parse(props.items) : undefined;
+  let items;
+  if (getType(explicitItems) === 'array') {
+    items = explicitItems;
+  } else if (autoMap) {
+    items = eventData.items;
+  }
   if (getType(items) === 'array' && items.length) {
     mappedData.items = formatItems(items, mappedData.orderNumber);
   }
@@ -785,9 +809,9 @@ function upsertEmailContact(eventData) {
   const eventDataUserData = eventData.user_data || {};
   const email =
     data.emailAddress ||
-    eventData.email ||
-    eventDataUserData.email ||
-    eventDataUserData.email_address;
+    (data.autoMapEventData
+      ? eventData.email || eventDataUserData.email || eventDataUserData.email_address
+      : undefined);
 
   if (!requireValue(data.listId, 'listId', '🛑 [ERROR] Contact was not sent.')) return true;
   if (!requireValue(email, 'emailAddress', '🛑 [ERROR] Contact was not sent.')) return true;
@@ -811,7 +835,9 @@ function upsertEmailContact(eventData) {
 
 function upsertSmsContact(eventData) {
   const eventDataUserData = eventData.user_data || {};
-  const phoneNumber = data.phoneNumber || eventDataUserData.phone_number || eventDataUserData.phone;
+  const phoneNumber =
+    data.phoneNumber ||
+    (data.autoMapEventData ? eventDataUserData.phone_number || eventDataUserData.phone : undefined);
 
   if (!requireValue(data.shortCodeId, 'shortCodeId', '🛑 [ERROR] SMS contact was not sent.'))
     return true;
@@ -1458,6 +1484,33 @@ scenarios:
       assertApi('gtmOnSuccess').wasCalled();
       assertApi('gtmOnFailure').wasNotCalled();
     });
+- name: '[Order] Does not fall back to Event Data client_id for Customer Number'
+  code: |-
+    mockData.customerNumber = undefined;
+
+    mock('getAllEventData', () => ({
+      page_location: 'https://example.com/checkout',
+      transaction_id: 'TXN-11',
+      client_id: 'ga-client-id'
+    }));
+
+    mock('sendHttpRequest', (url, options, body) => {
+      if (url === 'https://auth.listrak.com/OAuth2/Token') {
+        return Promise.create((resolve) =>
+          resolve({statusCode: 200, body: JSON.stringify({access_token: 'tok', expires_in: 3600})})
+        );
+      }
+      const order = JSON.parse(body)[0];
+      assertThat(order.customerNumber).isUndefined();
+      return Promise.create((resolve) => resolve({statusCode: 200, body: '{}'}));
+    });
+
+    runCode(mockData);
+
+    callLater(() => {
+      assertApi('gtmOnSuccess').wasCalled();
+      assertApi('gtmOnFailure').wasNotCalled();
+    });
 - name: '[Order] Falls back to user_data email fields when direct email fields are
     missing'
   code: |-
@@ -1570,6 +1623,92 @@ scenarios:
       assertApi('gtmOnSuccess').wasCalled();
       assertApi('gtmOnFailure').wasNotCalled();
     });
+- name: '[Order] Excludes items when Automap from Event Data is disabled'
+  code: |-
+    mockData.autoMapEventData = false;
+
+    mock('getAllEventData', () => ({
+      page_location: 'https://example.com/checkout',
+      items: [{item_id: 'SKU-1', quantity: 2, price: 10}]
+    }));
+
+    mock('sendHttpRequest', (url, options, body) => {
+      if (url === 'https://auth.listrak.com/OAuth2/Token') {
+        return Promise.create((resolve) =>
+          resolve({statusCode: 200, body: JSON.stringify({access_token: 'tok', expires_in: 3600})})
+        );
+      }
+      const order = JSON.parse(body)[0];
+      assertThat(order.items).isUndefined();
+      return Promise.create((resolve) => resolve({statusCode: 200, body: '{}'}));
+    });
+
+    runCode(mockData);
+
+    callLater(() => {
+      assertApi('gtmOnSuccess').wasCalled();
+      assertApi('gtmOnFailure').wasNotCalled();
+    });
+- name: '[Order] Items property lets the user set line items directly, overriding
+    Event Data'
+  code: |-
+    mockData.orderProperties = [
+      {key: 'items', value: JSON.stringify([{sku: 'SKU-9', quantity: 1, price: 5}])}
+    ];
+
+    mock('getAllEventData', () => ({
+      page_location: 'https://example.com/checkout',
+      items: [{item_id: 'SKU-1', quantity: 2, price: 10}]
+    }));
+
+    mock('sendHttpRequest', (url, options, body) => {
+      if (url === 'https://auth.listrak.com/OAuth2/Token') {
+        return Promise.create((resolve) =>
+          resolve({statusCode: 200, body: JSON.stringify({access_token: 'tok', expires_in: 3600})})
+        );
+      }
+      const order = JSON.parse(body)[0];
+      assertThat(order.items).hasLength(1);
+      assertThat(order.items[0].sku).isEqualTo('SKU-9');
+      assertThat(order.items[0].quantity).isEqualTo(1);
+      assertThat(order.items[0].itemTotal).isEqualTo(5);
+      return Promise.create((resolve) => resolve({statusCode: 200, body: '{}'}));
+    });
+
+    runCode(mockData);
+
+    callLater(() => {
+      assertApi('gtmOnSuccess').wasCalled();
+      assertApi('gtmOnFailure').wasNotCalled();
+    });
+- name: '[Order] Falls back to Event Data items when the Items property is not valid
+    JSON'
+  code: |-
+    mockData.orderProperties = [{key: 'items', value: 'not-json'}];
+
+    mock('getAllEventData', () => ({
+      page_location: 'https://example.com/checkout',
+      items: [{item_id: 'SKU-1', quantity: 2, price: 10}]
+    }));
+
+    mock('sendHttpRequest', (url, options, body) => {
+      if (url === 'https://auth.listrak.com/OAuth2/Token') {
+        return Promise.create((resolve) =>
+          resolve({statusCode: 200, body: JSON.stringify({access_token: 'tok', expires_in: 3600})})
+        );
+      }
+      const order = JSON.parse(body)[0];
+      assertThat(order.items).hasLength(1);
+      assertThat(order.items[0].sku).isEqualTo('SKU-1');
+      return Promise.create((resolve) => resolve({statusCode: 200, body: '{}'}));
+    });
+
+    runCode(mockData);
+
+    callLater(() => {
+      assertApi('gtmOnSuccess').wasCalled();
+      assertApi('gtmOnFailure').wasNotCalled();
+    });
 - name: '[Order] Calls gtmOnFailure on a non-2xx API response'
   code: |-
     mock('sendHttpRequest', (url) => {
@@ -1628,6 +1767,28 @@ scenarios:
     callLater(() => {
       assertApi('gtmOnFailure').wasNotCalled();
     });
+- name: '[Automap] Disabling Automap from Event Data skips every Event Data fallback'
+  code: |-
+    mockData.autoMapEventData = false;
+    mockData.orderNumber = undefined;
+    mockData.email = undefined;
+    mockData.customerNumber = undefined;
+
+    mock('getAllEventData', () => ({
+      page_location: 'https://example.com/checkout',
+      transaction_id: 'TXN-12',
+      email: 'fallback@example.com',
+      user_id: 'user-1',
+      value: 100,
+      tax: 5,
+      shipping: 5
+    }));
+
+    runCode(mockData);
+
+    assertApi('sendHttpRequest').wasNotCalled();
+    assertApi('gtmOnSuccess').wasNotCalled();
+    assertApi('gtmOnFailure').wasCalled();
 - name: '[Email Contact] Fails when the List ID is missing'
   code: |-
     mockData.eventType = 'contact';
@@ -1951,6 +2112,7 @@ setup: |-
     clientId: 'testClientId',
     clientSecret: 'testClientSecret',
     useOptimisticScenario: false,
+    autoMapEventData: true,
     adStorageConsent: 'optional',
     orderNumber: 'ORDER-1',
     purchaseDate: undefined,
