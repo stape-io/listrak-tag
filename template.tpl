@@ -13,7 +13,7 @@ ___INFO___
   "id": "cvt_temp_public_id",
   "version": 1,
   "securityGroups": [],
-  "displayName": "Listrak Conversions API",
+  "displayName": "Listrak",
   "categories": [
     "ADVERTISING",
     "MARKETING",
@@ -24,7 +24,7 @@ ___INFO___
     "displayName": "stape.io",
     "thumbnail": "data:image/png;base64,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\u003d\u003d"
   },
-  "description": "Sends Order data to Listrak\u0027s Data API and creates/updates Contacts via Listrak\u0027s Email API. Uses OAuth2 client credentials, caching the access token across requests.",
+  "description": "Sends Order data to Listrak\u0027s Data API and creates/updates Contacts via Listrak\u0027s Email or SMS API.",
   "containerContexts": [
     "SERVER"
   ]
@@ -55,7 +55,8 @@ ___TEMPLATE_PARAMETERS___
           }
         ],
         "simpleValueType": true,
-        "defaultValue": "order"
+        "defaultValue": "order",
+        "help": "\u003cb\u003eOrder\u003c/b\u003e sends order data to Listrak\u0027s Data API.\u003cbr/\u003e\u003cb\u003eContact\u003c/b\u003e creates or updates a contact via Listrak\u0027s Email or SMS API."
       },
       {
         "type": "TEXT",
@@ -68,7 +69,7 @@ ___TEMPLATE_PARAMETERS___
           }
         ],
         "alwaysInSummary": true,
-        "help": "The Client ID of a Listrak Integration (Account Settings \u003e Integrations \u003e Integration Management). Order events require a \"Data\" integration, Contact events require an \"Email\" integration."
+        "help": "The Client ID of a Listrak Integration (Account Settings \u003e Integrations \u003e Integration Management). Order events require a \"Data\" integration, Contact events require an \"Email\" or \"SMS\" integration depending on the Channel chosen.\u003cbr/\u003e\u003ca href\u003d\"https://help.listrak.com/en/articles/1465526-locating-the-client-secret-and-id\"\u003eLearn more\u003c/a\u003e about locating your Client ID and Client Secret."
       },
       {
         "type": "TEXT",
@@ -80,7 +81,7 @@ ___TEMPLATE_PARAMETERS___
             "type": "NON_EMPTY"
           }
         ],
-        "help": "The Client Secret paired with the Client ID above."
+        "help": "The Client Secret paired with the Client ID above.\u003cbr/\u003e\u003ca href\u003d\"https://help.listrak.com/en/articles/1465526-locating-the-client-secret-and-id\"\u003eLearn more\u003c/a\u003e about locating your Client ID and Client Secret."
       },
       {
         "type": "CHECKBOX",
@@ -88,6 +89,14 @@ ___TEMPLATE_PARAMETERS___
         "checkboxText": "Use Optimistic Scenario",
         "simpleValueType": true,
         "help": "The tag will call gtmOnSuccess() without waiting for a response from the API. This speeds up sGTM response time, but returns a success status even if the API call fails."
+      },
+      {
+        "type": "CHECKBOX",
+        "name": "autoMapEventData",
+        "checkboxText": "Automap from Event Data",
+        "simpleValueType": true,
+        "defaultValue": true,
+        "help": "When enabled (default), fields left empty automatically fall back to values from Event Data, as documented in each field\u0027s help text below. Disable to require every value to be set explicitly."
       }
     ]
   },
@@ -107,7 +116,7 @@ ___TEMPLATE_PARAMETERS___
             "type": "NON_EMPTY"
           }
         ],
-        "help": "Required. The unique order number for this order."
+        "help": "Required. The unique order number for this order.\u003cbr/\u003e\u003cbr/\u003eFalls back to \u003ci\u003eeventData.transaction_id\u003c/i\u003e when left empty and \u003ci\u003eAutomap from Event Data\u003c/i\u003e is enabled."
       },
       {
         "type": "TEXT",
@@ -121,19 +130,19 @@ ___TEMPLATE_PARAMETERS___
         "name": "email",
         "displayName": "Customer Email (Optional)",
         "simpleValueType": true,
-        "help": "The customer\u0027s email address, used by Listrak to match this order to a contact."
+        "help": "The customer\u0027s email address, used by Listrak to match this order to a contact.\u003cbr/\u003e\u003cbr/\u003eFalls back to \u003ci\u003eeventData.email\u003c/i\u003e, then \u003ci\u003eeventData.user_data.email\u003c/i\u003e, then \u003ci\u003eeventData.user_data.email_address\u003c/i\u003e, when left empty and \u003ci\u003eAutomap from Event Data\u003c/i\u003e is enabled."
       },
       {
         "type": "TEXT",
         "name": "customerNumber",
         "displayName": "Customer Number (Optional)",
         "simpleValueType": true,
-        "help": "Your own customer identifier for this order."
+        "help": "Your own customer identifier for this order.\u003cbr/\u003e\u003cbr/\u003eFalls back to \u003ci\u003eeventData.user_id\u003c/i\u003e when left empty and \u003ci\u003eAutomap from Event Data\u003c/i\u003e is enabled."
       },
       {
         "type": "SIMPLE_TABLE",
         "name": "orderProperties",
-        "displayName": "",
+        "displayName": "Order Properties",
         "simpleTableColumns": [
           {
             "defaultValue": "",
@@ -161,6 +170,18 @@ ___TEMPLATE_PARAMETERS___
               {
                 "value": "orderTotal",
                 "displayValue": "Order Total"
+              },
+              {
+                "value": "items",
+                "displayValue": "Items"
+              },
+              {
+                "value": "billingAddress",
+                "displayValue": "Billing Address"
+              },
+              {
+                "value": "shippingAddress",
+                "displayValue": "Shipping Address"
               },
               {
                 "value": "merchandiseDiscount",
@@ -253,7 +274,7 @@ ___TEMPLATE_PARAMETERS___
           }
         ],
         "newRowButtonText": "Add property",
-        "help": "Optional Order fields, as defined by Listrak\u0027s Order API. \"Item Total\", \"Shipping Total\" and \"Tax Total\" fall back to the event\u0027s value/shipping/tax when not set here."
+        "help": "Optional Order fields, as defined by Listrak\u0027s Order API.\u003cbr/\u003e\u003cbr/\u003eDefault mappings:\u003cul\u003e\u003cli\u003e\u003ci\u003eOrder Total\u003c/i\u003e: \u003ci\u003eeventData.value\u003c/i\u003e\u003c/li\u003e\u003cli\u003e\u003ci\u003eShipping Total\u003c/i\u003e: \u003ci\u003eeventData.shipping\u003c/i\u003e\u003c/li\u003e\u003cli\u003e\u003ci\u003eTax Total\u003c/i\u003e: \u003ci\u003eeventData.tax\u003c/i\u003e\u003c/li\u003e\u003cli\u003e\u003ci\u003eItems\u003c/i\u003e: \u003ci\u003eeventData.items\u003c/i\u003e\u003c/li\u003e\u003c/ul\u003e\u003cbr/\u003eAny value you manually enter for these four properties above will always override the auto-mapped value. All other properties are sent to Listrak as-is, with no automatic mapping. The above mappings and fallbacks only apply when \u003ci\u003eAutomap from Event Data\u003c/i\u003e is enabled.\u003cbr/\u003e\u003cbr/\u003eFor \u003ci\u003eItems\u003c/i\u003e, set the \"Value\" to a JSON array of objects with \u003ci\u003esku\u003c/i\u003e (or \u003ci\u003eitem_id\u003c/i\u003e), \u003ci\u003equantity\u003c/i\u003e (or \u003ci\u003eqty\u003c/i\u003e) and \u003ci\u003eprice\u003c/i\u003e, e.g. \u003ci\u003e[{\"sku\": \"SKU-1\", \"quantity\": 2, \"price\": 9.99}]\u003c/i\u003e.\u003cbr/\u003e\u003cbr/\u003eFor \u003ci\u003eBilling Address\u003c/i\u003e and \u003ci\u003eShipping Address\u003c/i\u003e, set the \"Value\" to a JSON object matching the shape documented in Listrak\u0027s Order API reference for that field."
       }
     ],
     "enablingConditions": [
@@ -271,6 +292,24 @@ ___TEMPLATE_PARAMETERS___
     "groupStyle": "NO_ZIPPY",
     "subParams": [
       {
+        "type": "RADIO",
+        "name": "channel",
+        "displayName": "Channel",
+        "radioItems": [
+          {
+            "value": "email",
+            "displayValue": "Email"
+          },
+          {
+            "value": "sms",
+            "displayValue": "SMS"
+          }
+        ],
+        "simpleValueType": true,
+        "defaultValue": "email",
+        "help": "Choose whether this Contact is created/updated via Listrak\u0027s Email API or SMS API."
+      },
+      {
         "type": "TEXT",
         "name": "listId",
         "displayName": "List ID",
@@ -280,7 +319,14 @@ ___TEMPLATE_PARAMETERS___
             "type": "NON_EMPTY"
           }
         ],
-        "help": "Required. The numeric ID of the Listrak List this contact belongs to."
+        "help": "Required. The numeric ID of the Listrak List this contact belongs to.",
+        "enablingConditions": [
+          {
+            "paramName": "channel",
+            "paramValue": "email",
+            "type": "EQUALS"
+          }
+        ]
       },
       {
         "type": "TEXT",
@@ -292,7 +338,14 @@ ___TEMPLATE_PARAMETERS___
             "type": "NON_EMPTY"
           }
         ],
-        "help": "Required. The contact\u0027s email address."
+        "help": "Required. The contact\u0027s email address.\u003cbr/\u003e\u003cbr/\u003eFalls back to \u003ci\u003eeventData.email\u003c/i\u003e, then \u003ci\u003eeventData.user_data.email\u003c/i\u003e, then \u003ci\u003eeventData.user_data.email_address\u003c/i\u003e, when left empty and \u003ci\u003eAutomap from Event Data\u003c/i\u003e is enabled.",
+        "enablingConditions": [
+          {
+            "paramName": "channel",
+            "paramValue": "email",
+            "type": "EQUALS"
+          }
+        ]
       },
       {
         "type": "SELECT",
@@ -309,40 +362,28 @@ ___TEMPLATE_PARAMETERS___
             "displayValue": "Unsubscribed"
           }
         ],
-        "help": "Leave unset to keep the contact\u0027s current subscription state."
+        "help": "Leave unset to keep the contact\u0027s current subscription state.",
+        "enablingConditions": [
+          {
+            "paramName": "channel",
+            "paramValue": "email",
+            "type": "EQUALS"
+          }
+        ]
       },
       {
         "type": "TEXT",
         "name": "externalContactID",
         "displayName": "External Contact ID (Optional)",
         "simpleValueType": true,
-        "help": "Your own identifier for this contact."
-      },
-      {
-        "type": "SIMPLE_TABLE",
-        "name": "segmentationFieldValues",
-        "displayName": "Profile Fields",
-        "simpleTableColumns": [
+        "help": "Your own identifier for this contact.",
+        "enablingConditions": [
           {
-            "defaultValue": "",
-            "displayName": "Segmentation Field ID",
-            "name": "segmentationFieldId",
-            "type": "TEXT",
-            "valueValidators": [
-              {
-                "type": "NON_EMPTY"
-              }
-            ]
-          },
-          {
-            "defaultValue": "",
-            "displayName": "Value",
-            "name": "value",
-            "type": "TEXT"
+            "paramName": "channel",
+            "paramValue": "email",
+            "type": "EQUALS"
           }
-        ],
-        "newRowButtonText": "Add profile field",
-        "help": "Listrak identifies Profile Fields (Segmentation Fields) by numeric ID, not by name. Find each field\u0027s ID under List \u003e Profile Field Groups in the Listrak UI."
+        ]
       },
       {
         "type": "GROUP",
@@ -406,7 +447,181 @@ ___TEMPLATE_PARAMETERS___
             "simpleValueType": true,
             "help": "Comma-separated Listrak Event IDs to fire (e.g. to trigger an Automated Campaign) once this contact is saved."
           }
+        ],
+        "enablingConditions": [
+          {
+            "paramName": "channel",
+            "paramValue": "email",
+            "type": "EQUALS"
+          }
         ]
+      },
+      {
+        "type": "TEXT",
+        "name": "shortCodeId",
+        "displayName": "Short Code ID",
+        "simpleValueType": true,
+        "valueValidators": [
+          {
+            "type": "NON_EMPTY"
+          }
+        ],
+        "help": "Required. The numeric ID of your Listrak SMS Short Code (Account Settings \u003e SMS \u003e Short Codes).",
+        "enablingConditions": [
+          {
+            "paramName": "channel",
+            "paramValue": "sms",
+            "type": "EQUALS"
+          }
+        ]
+      },
+      {
+        "type": "TEXT",
+        "name": "phoneListId",
+        "displayName": "SMS List ID",
+        "simpleValueType": true,
+        "valueValidators": [
+          {
+            "type": "NON_EMPTY"
+          }
+        ],
+        "help": "Required. The numeric ID of the Listrak SMS List this contact belongs to.",
+        "enablingConditions": [
+          {
+            "paramName": "channel",
+            "paramValue": "sms",
+            "type": "EQUALS"
+          }
+        ]
+      },
+      {
+        "type": "TEXT",
+        "name": "phoneNumber",
+        "displayName": "Phone Number",
+        "simpleValueType": true,
+        "valueValidators": [
+          {
+            "type": "NON_EMPTY"
+          }
+        ],
+        "help": "Required. The contact\u0027s phone number, preferably in E.164 format (e.g. +16505551212).\u003cbr/\u003e\u003cbr/\u003eFalls back to \u003ci\u003eeventData.user_data.phone_number\u003c/i\u003e, then \u003ci\u003eeventData.user_data.phone\u003c/i\u003e, when left empty and \u003ci\u003eAutomap from Event Data\u003c/i\u003e is enabled.",
+        "enablingConditions": [
+          {
+            "paramName": "channel",
+            "paramValue": "sms",
+            "type": "EQUALS"
+          }
+        ]
+      },
+      {
+        "type": "RADIO",
+        "name": "smsAction",
+        "displayName": "SMS Action",
+        "radioItems": [
+          {
+            "value": "create",
+            "displayValue": "Create Contact"
+          },
+          {
+            "value": "subscribe",
+            "displayValue": "Subscribe Contact"
+          }
+        ],
+        "simpleValueType": true,
+        "defaultValue": "create",
+        "help": "\u003cb\u003eCreate Contact\u003c/b\u003e creates the contact if it doesn\u0027t already exist on the Short Code and subscribes it to the SMS List.\u003cbr/\u003e\u003cb\u003eSubscribe Contact\u003c/b\u003e only subscribes a contact that already exists on the Short Code — use this if the contact was already created.",
+        "enablingConditions": [
+          {
+            "paramName": "channel",
+            "paramValue": "sms",
+            "type": "EQUALS"
+          }
+        ]
+      },
+      {
+        "type": "GROUP",
+        "name": "smsContactDetailsGroup",
+        "displayName": "Contact Details (Create Contact only)",
+        "groupStyle": "ZIPPY_CLOSED",
+        "subParams": [
+          {
+            "type": "TEXT",
+            "name": "smsEmailAddress",
+            "displayName": "Email Address (Optional)",
+            "simpleValueType": true,
+            "help": "The contact\u0027s email address."
+          },
+          {
+            "type": "TEXT",
+            "name": "firstName",
+            "displayName": "First Name (Optional)",
+            "simpleValueType": true
+          },
+          {
+            "type": "TEXT",
+            "name": "lastName",
+            "displayName": "Last Name (Optional)",
+            "simpleValueType": true
+          },
+          {
+            "type": "TEXT",
+            "name": "birthday",
+            "displayName": "Birthday (Optional)",
+            "simpleValueType": true,
+            "help": "In ISO-8601 format."
+          },
+          {
+            "type": "TEXT",
+            "name": "postalCode",
+            "displayName": "Postal Code (Optional)",
+            "simpleValueType": true
+          },
+          {
+            "type": "CHECKBOX",
+            "name": "optedOut",
+            "checkboxText": "Opted Out",
+            "simpleValueType": true,
+            "help": "Marks the contact as opted out of SMS messages."
+          }
+        ],
+        "enablingConditions": [
+          {
+            "paramName": "channel",
+            "paramValue": "sms",
+            "type": "EQUALS"
+          },
+          {
+            "paramName": "smsAction",
+            "paramValue": "create",
+            "type": "EQUALS"
+          }
+        ]
+      },
+      {
+        "type": "SIMPLE_TABLE",
+        "name": "segmentationFieldValues",
+        "displayName": "Profile Fields",
+        "simpleTableColumns": [
+          {
+            "defaultValue": "",
+            "displayName": "Segmentation Field ID",
+            "name": "segmentationFieldId",
+            "type": "TEXT",
+            "valueValidators": [
+              {
+                "type": "NON_EMPTY"
+              }
+            ]
+          },
+          {
+            "defaultValue": "",
+            "displayName": "Value",
+            "name": "value",
+            "type": "TEXT"
+          }
+        ],
+        "newRowButtonText": "Add profile field",
+        "help": "Listrak identifies Profile Fields (Segmentation Fields) by numeric ID, not by name. Find each field\u0027s ID under List \u003e Profile Field Groups (Email channel) or Contact \u003e Segmentation Fields (SMS channel) in the Listrak UI.\u003cbr/\u003e\u003cbr/\u003eFor the SMS channel, this only applies when SMS Action is set to Create Contact."
       }
     ],
     "enablingConditions": [
@@ -446,7 +661,6 @@ ___TEMPLATE_PARAMETERS___
 
 
 ___SANDBOXED_JS_FOR_SERVER___
-
 const encodeUriComponent = require('encodeUriComponent');
 const getAllEventData = require('getAllEventData');
 const getRequestHeader = require('getRequestHeader');
@@ -461,6 +675,7 @@ const makeTableMap = require('makeTableMap');
 const Math = require('Math');
 const Promise = require('Promise');
 const sendHttpRequest = require('sendHttpRequest');
+const sha256Sync = require('sha256Sync');
 const templateDataStorage = require('templateDataStorage');
 
 /*==============================================================================
@@ -476,7 +691,8 @@ if (data.eventType === 'order') {
     return data.gtmOnSuccess();
   }
 } else if (data.eventType === 'contact') {
-  const failed = upsertContact(eventData);
+  const failed =
+    data.channel === 'sms' ? upsertSmsContact(eventData) : upsertEmailContact(eventData);
   if (!failed && data.useOptimisticScenario) {
     return data.gtmOnSuccess();
   }
@@ -491,16 +707,8 @@ if (data.eventType === 'order') {
 function trackOrder(eventData) {
   const orderData = mapOrderData(eventData);
 
-  if (!isValidValue(orderData.orderNumber)) {
-    log({
-      Name: 'Listrak',
-      Type: 'Message',
-      Message: '🛑 [ERROR] Order was not sent.',
-      Reason: 'Missing required parameter: "orderNumber".'
-    });
-    data.gtmOnFailure();
+  if (!requireValue(orderData.orderNumber, 'orderNumber', '🛑 [ERROR] Order was not sent.'))
     return true;
-  }
 
   performApiCall('https://api.listrak.com/data/v1/Order', 'POST', [orderData]);
   return false;
@@ -516,7 +724,9 @@ function mapOrderData(eventData) {
     'merchandiseDiscount',
     'nonMerchandiseDiscount'
   ];
-  const orderNumber = data.orderNumber || eventData.transaction_id;
+  const ORDER_JSON_OBJECT_PROPERTIES = ['billingAddress', 'shippingAddress'];
+  const autoMap = data.autoMapEventData;
+  const orderNumber = data.orderNumber || (autoMap ? eventData.transaction_id : undefined);
   const mappedData = {};
 
   if (isValidValue(orderNumber)) mappedData.orderNumber = makeString(orderNumber);
@@ -526,38 +736,52 @@ function mapOrderData(eventData) {
     : convertTimestampToISO(getTimestampMillis());
 
   const eventDataUserData = eventData.user_data || {};
-  if (isValidValue(data.email)) mappedData.email = data.email;
-  else if (eventData.email) mappedData.email = eventData.email;
-  else if (eventDataUserData.email) mappedData.email = eventDataUserData.email;
-  else if (eventDataUserData.email_address) mappedData.email = eventDataUserData.email_address;
+  const email =
+    data.email ||
+    (autoMap
+      ? eventData.email || eventDataUserData.email || eventDataUserData.email_address
+      : undefined);
+  if (isValidValue(email)) mappedData.email = email;
 
-  if (isValidValue(data.customerNumber))
-    mappedData.customerNumber = makeString(data.customerNumber);
-  else if (eventData.user_id) mappedData.customerNumber = makeString(eventData.user_id);
-  else if (eventData.client_id) mappedData.customerNumber = makeString(eventData.client_id);
+  const customerNumber = data.customerNumber || (autoMap ? eventData.user_id : undefined);
+  if (isValidValue(customerNumber)) mappedData.customerNumber = makeString(customerNumber);
 
-  if (data.orderProperties && data.orderProperties.length) {
-    const props = makeTableMap(data.orderProperties, 'key', 'value');
-    for (let key in props) {
-      mappedData[key] =
-        ORDER_NUMERIC_PROPERTIES.indexOf(key) !== -1
-          ? makeNumber(props[key])
-          : makeString(props[key]);
-    }
+  const props =
+    data.orderProperties && data.orderProperties.length
+      ? makeTableMap(data.orderProperties, 'key', 'value')
+      : {};
+  for (let key in props) {
+    if (key === 'items' || ORDER_JSON_OBJECT_PROPERTIES.indexOf(key) !== -1) continue;
+    mappedData[key] =
+      ORDER_NUMERIC_PROPERTIES.indexOf(key) !== -1
+        ? makeNumber(props[key])
+        : makeString(props[key]);
   }
 
-  if (mappedData.itemTotal === undefined && isValidValue(eventData.value))
-    mappedData.itemTotal = makeNumber(eventData.value);
-  if (mappedData.taxTotal === undefined && isValidValue(eventData.tax))
+  if (autoMap && mappedData.orderTotal === undefined && isValidValue(eventData.value))
+    mappedData.orderTotal = makeNumber(eventData.value);
+  if (autoMap && mappedData.taxTotal === undefined && isValidValue(eventData.tax))
     mappedData.taxTotal = makeNumber(eventData.tax);
-  if (mappedData.shippingTotal === undefined && isValidValue(eventData.shipping)) {
+  if (autoMap && mappedData.shippingTotal === undefined && isValidValue(eventData.shipping)) {
     mappedData.shippingTotal = makeNumber(eventData.shipping);
   }
 
-  const items = eventData.items;
+  const explicitItems = isValidValue(props.items) ? JSON.parse(props.items) : undefined;
+  let items;
+  if (getType(explicitItems) === 'array') {
+    items = explicitItems;
+  } else if (autoMap) {
+    items = eventData.items;
+  }
   if (getType(items) === 'array' && items.length) {
     mappedData.items = formatItems(items, mappedData.orderNumber);
   }
+
+  ORDER_JSON_OBJECT_PROPERTIES.forEach((key) => {
+    if (!isValidValue(props[key])) return;
+    const parsed = JSON.parse(props[key]);
+    if (getType(parsed) === 'object') mappedData[key] = parsed;
+  });
 
   return mappedData;
 }
@@ -595,35 +819,16 @@ function formatItems(items, orderNumber) {
   return formattedItems;
 }
 
-function upsertContact(eventData) {
+function upsertEmailContact(eventData) {
   const eventDataUserData = eventData.user_data || {};
   const email =
     data.emailAddress ||
-    eventData.email ||
-    eventDataUserData.email ||
-    eventDataUserData.email_address;
+    (data.autoMapEventData
+      ? eventData.email || eventDataUserData.email || eventDataUserData.email_address
+      : undefined);
 
-  if (!isValidValue(data.listId)) {
-    log({
-      Name: 'Listrak',
-      Type: 'Message',
-      Message: '🛑 [ERROR] Contact was not sent.',
-      Reason: 'Missing required parameter: "listId".'
-    });
-    data.gtmOnFailure();
-    return true;
-  }
-
-  if (!isValidValue(email)) {
-    log({
-      Name: 'Listrak',
-      Type: 'Message',
-      Message: '🛑 [ERROR] Contact was not sent.',
-      Reason: 'Missing required parameter: "emailAddress".'
-    });
-    data.gtmOnFailure();
-    return true;
-  }
+  if (!requireValue(data.listId, 'listId', '🛑 [ERROR] Contact was not sent.')) return true;
+  if (!requireValue(email, 'emailAddress', '🛑 [ERROR] Contact was not sent.')) return true;
 
   const contactData = {
     emailAddress: makeString(email),
@@ -634,9 +839,57 @@ function upsertContact(eventData) {
 
   const url =
     'https://api.listrak.com/email/v1/List/' +
-    encodeUriComponent(data.listId) +
+    enc(data.listId) +
     '/Contact' +
     buildContactQueryString();
+
+  performApiCall(url, 'POST', contactData);
+  return false;
+}
+
+function upsertSmsContact(eventData) {
+  const eventDataUserData = eventData.user_data || {};
+  const phoneNumber =
+    data.phoneNumber ||
+    (data.autoMapEventData ? eventDataUserData.phone_number || eventDataUserData.phone : undefined);
+
+  if (!requireValue(data.shortCodeId, 'shortCodeId', '🛑 [ERROR] SMS contact was not sent.'))
+    return true;
+  if (!requireValue(data.phoneListId, 'phoneListId', '🛑 [ERROR] SMS contact was not sent.'))
+    return true;
+  if (!requireValue(phoneNumber, 'phoneNumber', '🛑 [ERROR] SMS contact was not sent.'))
+    return true;
+
+  if (data.smsAction === 'subscribe') {
+    const url =
+      'https://api.listrak.com/sms/v1/ShortCode/' +
+      enc(data.shortCodeId) +
+      '/Contact/' +
+      enc(phoneNumber) +
+      '/PhoneList/' +
+      enc(data.phoneListId);
+
+    performApiCall(url, 'POST', null);
+    return false;
+  }
+
+  const contactData = {
+    phoneNumber: makeString(phoneNumber),
+    segmentationFieldValues: mapSegmentationFieldValues()
+  };
+  if (isValidValue(data.smsEmailAddress)) contactData.emailAddress = data.smsEmailAddress;
+  if (isValidValue(data.firstName)) contactData.firstName = data.firstName;
+  if (isValidValue(data.lastName)) contactData.lastName = data.lastName;
+  if (isValidValue(data.birthday)) contactData.birthday = data.birthday;
+  if (isValidValue(data.postalCode)) contactData.postalCode = data.postalCode;
+  if (data.optedOut) contactData.optedOut = true;
+
+  const url =
+    'https://api.listrak.com/sms/v1/ShortCode/' +
+    enc(data.shortCodeId) +
+    '/PhoneList/' +
+    enc(data.phoneListId) +
+    '/Contact';
 
   performApiCall(url, 'POST', contactData);
   return false;
@@ -652,20 +905,18 @@ function mapSegmentationFieldValues() {
 
 function buildContactQueryString() {
   const params = [];
-  if (isValidValue(data.updateType))
-    params.push('updateType=' + encodeUriComponent(data.updateType));
+  if (isValidValue(data.updateType)) params.push('updateType=' + enc(data.updateType));
   if (data.overrideUnsubscribe) params.push('overrideUnsubscribe=true');
   if (data.subscribedByContact) params.push('subscribedByContact=true');
   if (data.sendDoubleOptIn) params.push('sendDoubleOptIn=true');
-  if (isValidValue(data.newEmailAddress)) {
-    params.push('newEmailAddress=' + encodeUriComponent(data.newEmailAddress));
-  }
-  if (isValidValue(data.eventIds)) params.push('eventIds=' + encodeUriComponent(data.eventIds));
+  if (isValidValue(data.newEmailAddress))
+    params.push('newEmailAddress=' + enc(data.newEmailAddress));
+  if (isValidValue(data.eventIds)) params.push('eventIds=' + enc(data.eventIds));
   return params.length ? '?' + params.join('&') : '';
 }
 
 function getAccessToken() {
-  const cacheKey = 'listrak_access_token:' + data.clientId;
+  const cacheKey = sha256Sync('listrak_access_token_' + data.clientId + '_' + data.clientSecret);
   const cached = templateDataStorage.getItemCopy(cacheKey);
   if (cached && cached.expiresAt > getTimestampMillis()) {
     return Promise.create((resolve) => resolve(cached.accessToken));
@@ -673,73 +924,68 @@ function getAccessToken() {
 
   const body =
     'grant_type=client_credentials&client_id=' +
-    encodeUriComponent(data.clientId) +
+    enc(data.clientId) +
     '&client_secret=' +
-    encodeUriComponent(data.clientSecret);
+    enc(data.clientSecret);
 
   return sendHttpRequest(
     'https://auth.listrak.com/OAuth2/Token',
     {
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      method: 'POST',
-      timeout: 3500
+      method: 'POST'
     },
     body
-  ).then((result) => {
-    const parsedBody = JSON.parse(result.body || '{}');
-    if (
-      result.statusCode >= 200 &&
-      result.statusCode < 400 &&
-      parsedBody &&
-      parsedBody.access_token
-    ) {
-      templateDataStorage.setItemCopy(cacheKey, {
-        accessToken: parsedBody.access_token,
-        expiresAt: getTimestampMillis() + (makeInteger(parsedBody.expires_in || 3600) - 60) * 1000
-      });
-      return parsedBody.access_token;
-    }
+  )
+    .then((result) => {
+      const parsedBody = JSON.parse(result.body || '{}');
+      if (
+        result.statusCode >= 200 &&
+        result.statusCode < 400 &&
+        parsedBody &&
+        parsedBody.access_token
+      ) {
+        templateDataStorage.setItemCopy(cacheKey, {
+          accessToken: parsedBody.access_token,
+          expiresAt: getTimestampMillis() + (makeInteger(parsedBody.expires_in || 3600) - 60) * 1000
+        });
+        return parsedBody.access_token;
+      }
 
-    logApiError('🛑 [ERROR] Failed to obtain a Listrak access token.', result.statusCode, parsedBody);
-    return Promise.create((resolve, reject) => reject({ reason: 'auth_failed' }));
-  });
+      if (!data.useOptimisticScenario) data.gtmOnFailure();
+      return undefined;
+    })
+    .catch(() => {
+      if (!data.useOptimisticScenario) data.gtmOnFailure();
+      return undefined;
+    });
 }
 
 function performApiCall(url, method, body) {
-  getAccessToken()
-    .then((token) =>
-      sendHttpRequest(
-        url,
-        {
-          headers: { Authorization: 'Bearer ' + token, 'Content-Type': 'application/json' },
-          method: method,
-          timeout: 3500
-        },
-        JSON.stringify(body)
-      )
-    )
-    .then((result) => {
-      const parsedBody = JSON.parse(result.body || '{}');
-      const success =
-        result.statusCode >= 200 && result.statusCode < 400 && !(parsedBody && parsedBody.error);
+  getAccessToken().then((token) => {
+    if (!token) return;
 
-      if (!success) {
-        logApiError('🛑 [ERROR] Listrak API call failed.', result.statusCode, parsedBody);
-      }
+    const options = { headers: { Authorization: 'Bearer ' + token }, method: method };
+    let requestBody;
+    if (body !== null) {
+      options.headers['Content-Type'] = 'application/json';
+      requestBody = JSON.stringify(body);
+    }
 
-      if (!data.useOptimisticScenario) {
-        if (success) data.gtmOnSuccess();
-        else data.gtmOnFailure();
-      }
-    })
-    .catch((error) => {
-      logApiError(
-        '🛑 [ERROR] Listrak API request failed.',
-        (error && error.reason) || 'unknown_error',
-        {}
-      );
-      if (!data.useOptimisticScenario) data.gtmOnFailure();
-    });
+    sendHttpRequest(url, options, requestBody)
+      .then((result) => {
+        const parsedBody = JSON.parse(result.body || '{}');
+        const success =
+          result.statusCode >= 200 && result.statusCode < 400 && !(parsedBody && parsedBody.error);
+
+        if (!data.useOptimisticScenario) {
+          if (success) data.gtmOnSuccess();
+          else data.gtmOnFailure();
+        }
+      })
+      .catch(() => {
+        if (!data.useOptimisticScenario) data.gtmOnFailure();
+      });
+  });
 }
 
 /*==============================================================================
@@ -813,9 +1059,22 @@ function convertTimestampToISO(timestamp) {
   );
 }
 
+function requireValue(value, paramName, failMessage) {
+  if (isValidValue(value)) return true;
+  log({
+    Name: 'Listrak',
+    Type: 'Message',
+    Message: failMessage,
+    Reason: 'Missing required parameter: "' + paramName + '".'
+  });
+  data.gtmOnFailure();
+  return false;
+}
+
 function isValidValue(value) {
   const valueType = getType(value);
-  return valueType !== 'null' && valueType !== 'undefined' && value !== '' && value === value;
+  if (valueType === 'null' || valueType === 'undefined' || value !== value) return false;
+  return value !== '' && value !== 'undefined' && value !== 'null';
 }
 
 function isConsentGivenOrNotRequired(data, eventData) {
@@ -843,24 +1102,15 @@ function shouldExitEarly(data, eventData) {
   return false;
 }
 
-function logApiError(message, status, response) {
-  log({
-    Name: 'Listrak',
-    Type: 'Message',
-    Message: message,
-    Status: status,
-    Response: response
-  });
+function enc(value) {
+  if (['null', 'undefined'].indexOf(getType(value)) !== -1) value = '';
+  return encodeUriComponent(makeString(value));
 }
 
 function log(rawDataToLog) {
   rawDataToLog.TraceId = getRequestHeader('trace-id');
   logToConsole(JSON.stringify(rawDataToLog));
 }
-
-
-
-
 ___SERVER_PERMISSIONS___
 
 [
@@ -928,6 +1178,13 @@ ___SERVER_PERMISSIONS___
           "value": {
             "type": 1,
             "string": "specific"
+          }
+        },
+        {
+          "key": "queryParameterAccess",
+          "value": {
+            "type": 1,
+            "string": "any"
           }
         }
       ]
@@ -1009,6 +1266,14 @@ ___SERVER_PERMISSIONS___
               {
                 "type": 1,
                 "string": "https://api.listrak.com/data/v1/Order"
+              },
+              {
+                "type": 1,
+                "string": "https://api.listrak.com/sms/v1/ShortCode/*/PhoneList/*/Contact"
+              },
+              {
+                "type": 1,
+                "string": "https://api.listrak.com/sms/v1/ShortCode/*/Contact/*/PhoneList/*"
               }
             ]
           }
@@ -1217,11 +1482,38 @@ scenarios:
       assertThat(order.orderNumber).isEqualTo('TXN-9');
       assertThat(order.email).isEqualTo('fallback@example.com');
       assertThat(order.customerNumber).isEqualTo('user-42');
-      assertThat(order.itemTotal).isEqualTo(150);
+      assertThat(order.orderTotal).isEqualTo(150);
       assertThat(order.taxTotal).isEqualTo(12);
       assertThat(order.shippingTotal).isEqualTo(8);
       assertThat(order.dateEntered).isDefined();
 
+      return Promise.create((resolve) => resolve({statusCode: 200, body: '{}'}));
+    });
+
+    runCode(mockData);
+
+    callLater(() => {
+      assertApi('gtmOnSuccess').wasCalled();
+      assertApi('gtmOnFailure').wasNotCalled();
+    });
+- name: '[Order] Does not fall back to Event Data client_id for Customer Number'
+  code: |-
+    mockData.customerNumber = undefined;
+
+    mock('getAllEventData', () => ({
+      page_location: 'https://example.com/checkout',
+      transaction_id: 'TXN-11',
+      client_id: 'ga-client-id'
+    }));
+
+    mock('sendHttpRequest', (url, options, body) => {
+      if (url === 'https://auth.listrak.com/OAuth2/Token') {
+        return Promise.create((resolve) =>
+          resolve({statusCode: 200, body: JSON.stringify({access_token: 'tok', expires_in: 3600})})
+        );
+      }
+      const order = JSON.parse(body)[0];
+      assertThat(order.customerNumber).isUndefined();
       return Promise.create((resolve) => resolve({statusCode: 200, body: '{}'}));
     });
 
@@ -1343,6 +1635,89 @@ scenarios:
       assertApi('gtmOnSuccess').wasCalled();
       assertApi('gtmOnFailure').wasNotCalled();
     });
+- name: '[Order] Excludes items when Automap from Event Data is disabled'
+  code: |-
+    mockData.autoMapEventData = false;
+
+    mock('getAllEventData', () => ({
+      page_location: 'https://example.com/checkout',
+      items: [{item_id: 'SKU-1', quantity: 2, price: 10}]
+    }));
+
+    mock('sendHttpRequest', (url, options, body) => {
+      if (url === 'https://auth.listrak.com/OAuth2/Token') {
+        return Promise.create((resolve) =>
+          resolve({statusCode: 200, body: JSON.stringify({access_token: 'tok', expires_in: 3600})})
+        );
+      }
+      const order = JSON.parse(body)[0];
+      assertThat(order.items).isUndefined();
+      return Promise.create((resolve) => resolve({statusCode: 200, body: '{}'}));
+    });
+
+    runCode(mockData);
+
+    callLater(() => {
+      assertApi('gtmOnSuccess').wasCalled();
+      assertApi('gtmOnFailure').wasNotCalled();
+    });
+- name: '[Order] Items property lets the user set line items directly, overriding
+    Event Data'
+  code: |-
+    mockData.orderProperties = [
+      {key: 'items', value: JSON.stringify([{sku: 'SKU-9', quantity: 1, price: 5}])}
+    ];
+
+    mock('getAllEventData', () => ({
+      page_location: 'https://example.com/checkout',
+      items: [{item_id: 'SKU-1', quantity: 2, price: 10}]
+    }));
+
+    mock('sendHttpRequest', (url, options, body) => {
+      if (url === 'https://auth.listrak.com/OAuth2/Token') {
+        return Promise.create((resolve) =>
+          resolve({statusCode: 200, body: JSON.stringify({access_token: 'tok', expires_in: 3600})})
+        );
+      }
+      const order = JSON.parse(body)[0];
+      assertThat(order.items).hasLength(1);
+      assertThat(order.items[0].sku).isEqualTo('SKU-9');
+      assertThat(order.items[0].quantity).isEqualTo(1);
+      assertThat(order.items[0].itemTotal).isEqualTo(5);
+      return Promise.create((resolve) => resolve({statusCode: 200, body: '{}'}));
+    });
+
+    runCode(mockData);
+
+    callLater(() => {
+      assertApi('gtmOnSuccess').wasCalled();
+      assertApi('gtmOnFailure').wasNotCalled();
+    });
+- name: '[Order] Billing Address and Shipping Address properties are parsed as JSON objects'
+  code: |-
+    mockData.orderProperties = [
+      {key: 'billingAddress', value: JSON.stringify({firstName: 'Jane', lastName: 'Doe'})},
+      {key: 'shippingAddress', value: JSON.stringify({firstName: 'John', lastName: 'Smith'})}
+    ];
+
+    mock('sendHttpRequest', (url, options, body) => {
+      if (url === 'https://auth.listrak.com/OAuth2/Token') {
+        return Promise.create((resolve) =>
+          resolve({statusCode: 200, body: JSON.stringify({access_token: 'tok', expires_in: 3600})})
+        );
+      }
+      const order = JSON.parse(body)[0];
+      assertThat(order.billingAddress).isEqualTo({firstName: 'Jane', lastName: 'Doe'});
+      assertThat(order.shippingAddress).isEqualTo({firstName: 'John', lastName: 'Smith'});
+      return Promise.create((resolve) => resolve({statusCode: 200, body: '{}'}));
+    });
+
+    runCode(mockData);
+
+    callLater(() => {
+      assertApi('gtmOnSuccess').wasCalled();
+      assertApi('gtmOnFailure').wasNotCalled();
+    });
 - name: '[Order] Calls gtmOnFailure on a non-2xx API response'
   code: |-
     mock('sendHttpRequest', (url) => {
@@ -1401,7 +1776,29 @@ scenarios:
     callLater(() => {
       assertApi('gtmOnFailure').wasNotCalled();
     });
-- name: '[Contact] Fails when the List ID is missing'
+- name: '[Automap] Disabling Automap from Event Data skips every Event Data fallback'
+  code: |-
+    mockData.autoMapEventData = false;
+    mockData.orderNumber = undefined;
+    mockData.email = undefined;
+    mockData.customerNumber = undefined;
+
+    mock('getAllEventData', () => ({
+      page_location: 'https://example.com/checkout',
+      transaction_id: 'TXN-12',
+      email: 'fallback@example.com',
+      user_id: 'user-1',
+      value: 100,
+      tax: 5,
+      shipping: 5
+    }));
+
+    runCode(mockData);
+
+    assertApi('sendHttpRequest').wasNotCalled();
+    assertApi('gtmOnSuccess').wasNotCalled();
+    assertApi('gtmOnFailure').wasCalled();
+- name: '[Email Contact] Fails when the List ID is missing'
   code: |-
     mockData.eventType = 'contact';
     mockData.listId = undefined;
@@ -1411,7 +1808,7 @@ scenarios:
     assertApi('sendHttpRequest').wasNotCalled();
     assertApi('gtmOnSuccess').wasNotCalled();
     assertApi('gtmOnFailure').wasCalled();
-- name: '[Contact] Fails when the email address is missing'
+- name: '[Email Contact] Fails when the email address is missing'
   code: |-
     mockData.eventType = 'contact';
     mockData.emailAddress = undefined;
@@ -1422,7 +1819,8 @@ scenarios:
     assertApi('sendHttpRequest').wasNotCalled();
     assertApi('gtmOnSuccess').wasNotCalled();
     assertApi('gtmOnFailure').wasCalled();
-- name: '[Contact] Falls back to Event Data email fields when emailAddress is missing'
+- name: '[Email Contact] Falls back to Event Data email fields when emailAddress is
+    missing'
   code: |-
     mockData.eventType = 'contact';
     mockData.emailAddress = undefined;
@@ -1449,8 +1847,8 @@ scenarios:
       assertApi('gtmOnSuccess').wasCalled();
       assertApi('gtmOnFailure').wasNotCalled();
     });
-- name: '[Contact] Builds a POST request with segmentationFieldValues defaulting to
-    an empty array'
+- name: '[Email Contact] Builds a POST request with segmentationFieldValues defaulting
+    to an empty array'
   code: |-
     mockData.eventType = 'contact';
 
@@ -1463,6 +1861,7 @@ scenarios:
       assertThat(url).isEqualTo('https://api.listrak.com/email/v1/List/4242/Contact');
       assertThat(options.method).isEqualTo('POST');
       assertThat(options.headers['Authorization']).isEqualTo('Bearer tok');
+      assertThat(options.headers['Content-Type']).isEqualTo('application/json');
 
       const parsedBody = JSON.parse(body);
       assertThat(parsedBody.emailAddress).isEqualTo('contact@example.com');
@@ -1477,7 +1876,7 @@ scenarios:
       assertApi('gtmOnSuccess').wasCalled();
       assertApi('gtmOnFailure').wasNotCalled();
     });
-- name: '[Contact] Maps segmentationFieldValues rows to numeric field IDs'
+- name: '[Email Contact] Maps segmentationFieldValues rows to numeric field IDs'
   code: |-
     mockData.eventType = 'contact';
     mockData.segmentationFieldValues = [
@@ -1505,7 +1904,7 @@ scenarios:
       assertApi('gtmOnSuccess').wasCalled();
       assertApi('gtmOnFailure').wasNotCalled();
     });
-- name: '[Contact] Includes optional fields only when set'
+- name: '[Email Contact] Includes optional fields only when set'
   code: |-
     mockData.eventType = 'contact';
     mockData.subscriptionState = 'Subscribed';
@@ -1529,7 +1928,7 @@ scenarios:
       assertApi('gtmOnSuccess').wasCalled();
       assertApi('gtmOnFailure').wasNotCalled();
     });
-- name: '[Contact] Appends advanced query parameters only when set'
+- name: '[Email Contact] Appends advanced query parameters only when set'
   code: |-
     mockData.eventType = 'contact';
     mockData.updateType = 'Append';
@@ -1560,6 +1959,148 @@ scenarios:
       assertApi('gtmOnSuccess').wasCalled();
       assertApi('gtmOnFailure').wasNotCalled();
     });
+- name: '[SMS Contact] Fails when a required field is missing'
+  code: |-
+    ['shortCodeId', 'phoneListId', 'phoneNumber'].forEach((missingField) => {
+      cleanup();
+      const copyMockData = createMockData({eventType: 'contact', channel: 'sms'});
+      copyMockData[missingField] = undefined;
+
+      runCode(copyMockData);
+
+      assertApi('sendHttpRequest').wasNotCalled();
+      assertApi('gtmOnSuccess').wasNotCalled();
+      assertApi('gtmOnFailure').wasCalled();
+    });
+- name: '[SMS Contact] Falls back to Event Data phone fields when Phone Number is
+    missing'
+  code: |-
+    mockData.eventType = 'contact';
+    mockData.channel = 'sms';
+    mockData.phoneNumber = undefined;
+
+    mock('getAllEventData', () => ({
+      page_location: 'https://example.com/checkout',
+      user_data: {phone_number: '+15551234567'}
+    }));
+
+    mock('sendHttpRequest', (url, options, body) => {
+      if (url === 'https://auth.listrak.com/OAuth2/Token') {
+        return Promise.create((resolve) =>
+          resolve({statusCode: 200, body: JSON.stringify({access_token: 'tok', expires_in: 3600})})
+        );
+      }
+      const parsedBody = JSON.parse(body);
+      assertThat(parsedBody.phoneNumber).isEqualTo('+15551234567');
+      return Promise.create((resolve) => resolve({statusCode: 200, body: '{}'}));
+    });
+
+    runCode(mockData);
+
+    callLater(() => {
+      assertApi('gtmOnSuccess').wasCalled();
+      assertApi('gtmOnFailure').wasNotCalled();
+    });
+- name: '[SMS Contact] Create Contact builds a POST request with required and optional
+    fields'
+  code: |-
+    mockData.eventType = 'contact';
+    mockData.channel = 'sms';
+    mockData.smsAction = 'create';
+    mockData.smsEmailAddress = 'sms-contact@example.com';
+    mockData.firstName = 'Jane';
+    mockData.lastName = 'Doe';
+    mockData.birthday = '1990-05-01';
+    mockData.postalCode = '19104';
+    mockData.optedOut = true;
+    mockData.segmentationFieldValues = [{segmentationFieldId: '7', value: 'VIP'}];
+
+    mock('sendHttpRequest', (url, options, body) => {
+      if (url === 'https://auth.listrak.com/OAuth2/Token') {
+        return Promise.create((resolve) =>
+          resolve({statusCode: 200, body: JSON.stringify({access_token: 'tok', expires_in: 3600})})
+        );
+      }
+      assertThat(url).isEqualTo('https://api.listrak.com/sms/v1/ShortCode/99/PhoneList/555/Contact');
+      assertThat(options.method).isEqualTo('POST');
+      assertThat(options.headers['Content-Type']).isEqualTo('application/json');
+
+      const parsedBody = JSON.parse(body);
+      assertThat(parsedBody.phoneNumber).isEqualTo('+16505551212');
+      assertThat(parsedBody.emailAddress).isEqualTo('sms-contact@example.com');
+      assertThat(parsedBody.firstName).isEqualTo('Jane');
+      assertThat(parsedBody.lastName).isEqualTo('Doe');
+      assertThat(parsedBody.birthday).isEqualTo('1990-05-01');
+      assertThat(parsedBody.postalCode).isEqualTo('19104');
+      assertThat(parsedBody.optedOut).isTrue();
+      assertThat(parsedBody.segmentationFieldValues).isEqualTo([{segmentationFieldId: 7, value: 'VIP'}]);
+
+      return Promise.create((resolve) => resolve({statusCode: 201, body: '{}'}));
+    });
+
+    runCode(mockData);
+
+    callLater(() => {
+      assertApi('gtmOnSuccess').wasCalled();
+      assertApi('gtmOnFailure').wasNotCalled();
+    });
+- name: '[SMS Contact] Create Contact omits optional fields when not set'
+  code: |-
+    mockData.eventType = 'contact';
+    mockData.channel = 'sms';
+    mockData.smsAction = 'create';
+
+    mock('sendHttpRequest', (url, options, body) => {
+      if (url === 'https://auth.listrak.com/OAuth2/Token') {
+        return Promise.create((resolve) =>
+          resolve({statusCode: 200, body: JSON.stringify({access_token: 'tok', expires_in: 3600})})
+        );
+      }
+      const parsedBody = JSON.parse(body);
+      assertThat(parsedBody.phoneNumber).isEqualTo('+16505551212');
+      assertThat(parsedBody.segmentationFieldValues).isEqualTo([]);
+      assertThat(parsedBody.emailAddress).isUndefined();
+      assertThat(parsedBody.firstName).isUndefined();
+      assertThat(parsedBody.optedOut).isUndefined();
+
+      return Promise.create((resolve) => resolve({statusCode: 201, body: '{}'}));
+    });
+
+    runCode(mockData);
+
+    callLater(() => {
+      assertApi('gtmOnSuccess').wasCalled();
+      assertApi('gtmOnFailure').wasNotCalled();
+    });
+- name: '[SMS Contact] Subscribe Contact posts to the subscription URL with no request
+    body'
+  code: |-
+    mockData.eventType = 'contact';
+    mockData.channel = 'sms';
+    mockData.smsAction = 'subscribe';
+
+    mock('sendHttpRequest', (url, options, body) => {
+      if (url === 'https://auth.listrak.com/OAuth2/Token') {
+        return Promise.create((resolve) =>
+          resolve({statusCode: 200, body: JSON.stringify({access_token: 'tok', expires_in: 3600})})
+        );
+      }
+      assertThat(url).isEqualTo(
+        'https://api.listrak.com/sms/v1/ShortCode/99/Contact/%2B16505551212/PhoneList/555'
+      );
+      assertThat(options.method).isEqualTo('POST');
+      assertThat(options.headers['Content-Type']).isUndefined();
+      assertThat(body).isUndefined();
+
+      return Promise.create((resolve) => resolve({statusCode: 201, body: '{}'}));
+    });
+
+    runCode(mockData);
+
+    callLater(() => {
+      assertApi('gtmOnSuccess').wasCalled();
+      assertApi('gtmOnFailure').wasNotCalled();
+    });
 setup: |-
   const JSON = require('JSON');
   const Object = require('Object');
@@ -1580,6 +2121,7 @@ setup: |-
     clientId: 'testClientId',
     clientSecret: 'testClientSecret',
     useOptimisticScenario: false,
+    autoMapEventData: true,
     adStorageConsent: 'optional',
     orderNumber: 'ORDER-1',
     purchaseDate: undefined,
@@ -1596,19 +2138,30 @@ setup: |-
     subscribedByContact: false,
     sendDoubleOptIn: false,
     newEmailAddress: undefined,
-    eventIds: undefined
+    eventIds: undefined,
+    channel: 'email',
+    shortCodeId: '99',
+    phoneListId: '555',
+    phoneNumber: '+16505551212',
+    smsAction: 'create',
+    smsEmailAddress: undefined,
+    firstName: undefined,
+    lastName: undefined,
+    birthday: undefined,
+    postalCode: undefined,
+    optedOut: false
   };
 
   const createMockData = (overrides) => assign(assign({}, baseMockData), overrides || {});
 
   let tokenStore = null;
 
-  const cleanupMocks = () => {
+  const cleanup = () => {
     mock('getAllEventData', () => ({page_location: 'https://example.com/checkout'}));
     tokenStore = null;
   };
 
-  cleanupMocks();
+  cleanup();
   mock('getRequestHeader', () => undefined);
   mock('getTimestampMillis', 1712000000000);
   mockObject('templateDataStorage', {
@@ -1642,7 +2195,6 @@ ___NOTES___
 
 2026-08-28 - Change Notes:
   - First release
-  
-Created on 04/08/2026, 13:02:58
 
+Created on 04/08/2026, 13:02:58
 
