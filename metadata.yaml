@@ -1,5 +1,5 @@
 homepage: https://stape.io/
 documentation: https://github.com/stape-io/listrak-tag
 versions:
-  - sha: 280bb4cf5ff630de6e403e5160c193a3d02e3bc3
+  - sha: bfacb16ab515b59b84c5a262a634229571ea977b
     changeNotes: Initial release.
