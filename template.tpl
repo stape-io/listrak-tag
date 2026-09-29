@@ -113,7 +113,14 @@ ___TEMPLATE_PARAMETERS___
         "simpleValueType": true,
         "valueValidators": [
           {
-            "type": "NON_EMPTY"
+            "type": "NON_EMPTY",
+            "enablingConditions": [
+              {
+                "paramName": "autoMapEventData",
+                "paramValue": true,
+                "type": "NOT_EQUALS"
+              }
+            ]
           }
         ],
         "help": "Required. The unique order number for this order.\u003cbr/\u003e\u003cbr/\u003eFalls back to \u003ci\u003eeventData.transaction_id\u003c/i\u003e when left empty and \u003ci\u003eAutomap from Event Data\u003c/i\u003e is enabled."
@@ -259,6 +266,11 @@ ___TEMPLATE_PARAMETERS___
                 "value": "meta5",
                 "displayValue": "Meta 5"
               }
+            ],
+            "valueValidators": [
+              {
+                "type": "NON_EMPTY"
+              }
             ]
           },
           {
@@ -335,7 +347,14 @@ ___TEMPLATE_PARAMETERS___
         "simpleValueType": true,
         "valueValidators": [
           {
-            "type": "NON_EMPTY"
+            "type": "NON_EMPTY",
+            "enablingConditions": [
+              {
+                "paramName": "autoMapEventData",
+                "paramValue": true,
+                "type": "NOT_EQUALS"
+              }
+            ]
           }
         ],
         "help": "Required. The contact\u0027s email address.\u003cbr/\u003e\u003cbr/\u003eFalls back to \u003ci\u003eeventData.email\u003c/i\u003e, then \u003ci\u003eeventData.user_data.email\u003c/i\u003e, then \u003ci\u003eeventData.user_data.email_address\u003c/i\u003e, when left empty and \u003ci\u003eAutomap from Event Data\u003c/i\u003e is enabled.",
@@ -501,7 +520,14 @@ ___TEMPLATE_PARAMETERS___
         "simpleValueType": true,
         "valueValidators": [
           {
-            "type": "NON_EMPTY"
+            "type": "NON_EMPTY",
+            "enablingConditions": [
+              {
+                "paramName": "autoMapEventData",
+                "paramValue": true,
+                "type": "NOT_EQUALS"
+              }
+            ]
           }
         ],
         "help": "Required. The contact\u0027s phone number, preferably in E.164 format (e.g. +16505551212).\u003cbr/\u003e\u003cbr/\u003eFalls back to \u003ci\u003eeventData.user_data.phone_number\u003c/i\u003e, then \u003ci\u003eeventData.user_data.phone\u003c/i\u003e, when left empty and \u003ci\u003eAutomap from Event Data\u003c/i\u003e is enabled.",
@@ -610,14 +636,23 @@ ___TEMPLATE_PARAMETERS___
             "valueValidators": [
               {
                 "type": "NON_EMPTY"
+              },
+              {
+                "type": "POSITIVE_NUMBER"
               }
-            ]
+            ],
+            "isUnique": true
           },
           {
             "defaultValue": "",
             "displayName": "Value",
             "name": "value",
-            "type": "TEXT"
+            "type": "TEXT",
+            "valueValidators": [
+              {
+                "type": "NON_EMPTY"
+              }
+            ]
           }
         ],
         "newRowButtonText": "Add profile field",
@@ -661,6 +696,7 @@ ___TEMPLATE_PARAMETERS___
 
 
 ___SANDBOXED_JS_FOR_SERVER___
+
 const encodeUriComponent = require('encodeUriComponent');
 const getAllEventData = require('getAllEventData');
 const getRequestHeader = require('getRequestHeader');
@@ -1111,6 +1147,8 @@ function log(rawDataToLog) {
   rawDataToLog.TraceId = getRequestHeader('trace-id');
   logToConsole(JSON.stringify(rawDataToLog));
 }
+
+
 ___SERVER_PERMISSIONS___
 
 [
@@ -2192,6 +2230,11 @@ setup: |-
 
 
 ___NOTES___
+
+2026-09-29 - Change Notes:
+  - Order Number, Email Address and Phone Number are no longer flagged as required in the UI when "Automap from Event Data" is enabled, since they fall back to Event Data values
+  - Add required-value validation to the Order Properties "Property" and "Value" columns and to the Profile Fields "Value" column, so incomplete table rows are caught when saving the tag
+  - Enforce unique, numeric Segmentation Field IDs in Profile Fields, preventing duplicate rows and non-numeric IDs that would be sent to Listrak as invalid values
 
 2026-08-28 - Change Notes:
   - First release
