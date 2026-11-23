@@ -13,7 +13,7 @@ ___INFO___
   "id": "cvt_temp_public_id",
   "version": 1,
   "securityGroups": [],
-  "displayName": "Listrak",
+  "displayName": "Listrak by Stape",
   "categories": [
     "ADVERTISING",
     "MARKETING",
@@ -2230,6 +2230,9 @@ setup: |-
 
 
 ___NOTES___
+
+2026-11-23 - Change Notes:
+  - Rename the tag from "Listrak" to "Listrak by Stape" so the Community Template Gallery listing makes clear it is a Stape template, not an official one from Listrak
 
 2026-09-29 - Change Notes:
   - Order Number, Email Address and Phone Number are no longer flagged as required in the UI when "Automap from Event Data" is enabled, since they fall back to Event Data values
